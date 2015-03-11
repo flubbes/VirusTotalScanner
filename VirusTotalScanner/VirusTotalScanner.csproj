@@ -51,7 +51,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Monitoring\AlertBehaviors\FileAlertBehavior.cs" />
-    <Compile Include="Monitoring\AlertBehaviors\NoMatchingBehavior.cs" />
+    <Compile Include="Monitoring\AlertBehaviors\NoMatchingBehaviorBehavior.cs" />
     <Compile Include="Monitoring\Alerts\ChangeAlert.cs" />
     <Compile Include="Monitoring\Alerts\CreationAlert.cs" />
     <Compile Include="Monitoring\Alerts\IAlert.cs" />
@@ -67,6 +67,9 @@
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Scanning\Local\CachedDefinitions.cs" />
+    <Compile Include="Scanning\Local\VirusDefinition.cs" />
+    <Compile Include="Scanning\VirusScanner.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -92,6 +95,7 @@
   <ItemGroup>
     <Content Include="Assets\favicon.ico" />
     <Content Include="Assets\VirusTotal_Icon.png" />
+    <Folder Include="Scanning\VirusTotal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

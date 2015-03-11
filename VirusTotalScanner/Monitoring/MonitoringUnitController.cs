@@ -6,13 +6,47 @@ namespace VirusTotalScanner.Monitoring
 {
     public class MonitoringUnitController
     {
-        public MonitoringUnitController()
+        public MonitoringUnitController(
+            IEnumerable<ISubsystemMonitoringUnit> units, 
+            IEnumerable<IAlertBehavior> behaviors,
+            NoMatchingBehaviorBehavior noMatchingBehavior)
+        {
+            SetUpLists();
+
+            Units.AddRange(units);
+            AlertBehaviors.AddRange(behaviors);
+            NoMatchingBehaviorBehavior = noMatchingBehavior;
+
+            HookMonitoringUnitEvents();
+        }
+
+        private void SetUpLists()
         {
             Units = new List<ISubsystemMonitoringUnit>();
             AlertBehaviors = new List<IAlertBehavior>();
+        }
+
+        private void HookMonitoringUnitEvents()
+        {
             foreach (var unit in Units)
             {
                 unit.NewAlert += OnNewAlert;
+            }
+        }
+
+        public void Start()
+        {
+            foreach (var unit in Units)
+            {
+                unit.Start();
+            }
+        }
+
+        public void Stop()
+        {
+            foreach (var unit in Units)
+            {
+                unit.Stop();
             }
         }
 
@@ -35,6 +69,6 @@ namespace VirusTotalScanner.Monitoring
             private set;
         }
 
-        public NoMatchingBehavior NoMatchingBehaviorBehavior { get; set; }
+        public NoMatchingBehaviorBehavior NoMatchingBehaviorBehavior { get; set; }
     }
 }
