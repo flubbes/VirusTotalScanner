@@ -51,7 +51,7 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Monitoring\AlertBehaviors\FileAlertBehavior.cs" />
-    <Compile Include="Monitoring\AlertBehaviors\NoMatchingBehavior.cs" />
+    <Compile Include="Monitoring\AlertBehaviors\NoMatchingBehaviorBehavior.cs" />
     <Compile Include="Monitoring\Alerts\ChangeAlert.cs" />
     <Compile Include="Monitoring\Alerts\CreationAlert.cs" />
     <Compile Include="Monitoring\Alerts\IAlert.cs" />
@@ -64,6 +64,9 @@
     <Compile Include="Monitoring\NewAlertEventHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scanning\Local\CachedDefinitions.cs" />
+    <Compile Include="Scanning\Local\VirusDefinition.cs" />
+    <Compile Include="Scanning\VirusScanner.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -86,7 +89,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Scanning\VirusTotal\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
