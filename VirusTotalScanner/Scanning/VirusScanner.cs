@@ -45,7 +45,7 @@ namespace VirusTotalScanner.Scanning
                         
                     }
                 }
-                Thread.Sleep(1);
+                Thread.Sleep(500);
             }
         }
 
