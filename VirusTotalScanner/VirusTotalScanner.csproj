@@ -52,6 +52,8 @@
     </Compile>
     <Compile Include="Monitoring\IAlertBehavior.cs" />
     <Compile Include="Monitoring\MonitoringUnitController.cs" />
+    <Compile Include="Monitoring\NewAlertEventArgs.cs" />
+    <Compile Include="Monitoring\NewAlertEventHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

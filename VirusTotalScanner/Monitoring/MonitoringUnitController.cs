@@ -9,6 +9,15 @@ namespace VirusTotalScanner.Monitoring
         {
             Units = new List<ISubsystemMonitoringUnit>();
             AlertBehaviors = new List<IAlertBehavior>();
+            foreach (var unit in Units)
+            {
+                unit.NewAlert += OnNewAlert;
+            }
+        }
+
+        public void NewAlert(object sender, NewAlertEventArgs e)
+        {
+            
         }
 
         public List<ISubsystemMonitoringUnit> Units { get; private set; }
