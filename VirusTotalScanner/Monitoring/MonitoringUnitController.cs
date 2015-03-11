@@ -13,7 +13,7 @@ namespace VirusTotalScanner.Monitoring
 
         public List<ISubsystemMonitoringUnit> Units { get; private set; }
 
-        public List<AlertBehaviors> AlertBehaviors
+        public List<IAlertBehavior> AlertBehaviors
         {
             get;
             private set;
