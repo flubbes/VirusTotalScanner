@@ -6,8 +6,6 @@ namespace VirusTotalScanner.Scanning.Local
     {
         public string Hash { get; set; }
         public string FileName { get; set; }
-        public int UpVotes { get; set; }
-        public int DownVotes { get; set; }
         public List<ScanResult> ScanResults { get; set; }
     }
 
@@ -16,5 +14,6 @@ namespace VirusTotalScanner.Scanning.Local
         public string AntiVirus { get; set; }
         public string Definition { get; set; }
         public string Update { get; set; }
+        public bool IsVirus { get; set; }
     }
 }

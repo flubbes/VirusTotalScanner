@@ -6,9 +6,9 @@ namespace VirusTotalScanner.Scanning.Local
     {
         public CachedDefinitions()
         {
-            ScanResults = new List<ScanResult>();
+            Definitions = new List<VirusDefinition>();
         }
 
-        public List<ScanResult> ScanResults { get; private set; }
+        public List<VirusDefinition> Definitions { get; private set; }
     }
 }
