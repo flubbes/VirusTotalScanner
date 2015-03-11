@@ -42,7 +42,10 @@ namespace VirusTotalScanner.Monitoring.FileSystemMonitoring
 
         public void Stop()
         {
-            Watcher.Dispose();
+            if (Watcher != null)
+            {
+                Watcher.Dispose();
+            }
             IsRunning = false;
         }
 

@@ -18,7 +18,6 @@ namespace VirusTotalScanner.Support
 
         public static void SaveApiKeyToFile(string key)
         {
-            File.Delete(Filename);
             var writer = File.CreateText(Filename);
             writer.WriteLine(key);
             writer.Flush();

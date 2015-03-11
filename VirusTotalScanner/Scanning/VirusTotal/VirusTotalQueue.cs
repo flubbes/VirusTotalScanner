@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using VirusTotalNET;
+using VirusTotalNET.Exceptions;
 using VirusTotalNET.Objects;
 using VirusTotalScanner.Scanning.Local;
 using ScanResult = VirusTotalScanner.Scanning.Local.ScanResult;
@@ -18,9 +22,11 @@ namespace VirusTotalScanner.Scanning.VirusTotal
         private VirusTotalNET.VirusTotal _virusTotal;
         private readonly Action<DetectedVirus> _virusFoundTrigger;
         public event NewDefinitionEventHandler NewDefinition;
+        private List<string> _recentScanHashes;
 
         public VirusTotalQueue(Action<DetectedVirus> virusFoundTrigger)
         {
+            _recentScanHashes = new List<string>();
             _virusFoundTrigger = virusFoundTrigger;
             _queuedFiles = new ConcurrentBag<FileInfo>();
             _waitTime = DefaultWaitTime;
@@ -48,32 +54,54 @@ namespace VirusTotalScanner.Scanning.VirusTotal
         {
             while (!_shouldStopWorking)
             {
-                FileInfo fileInfo;
-                if (_queuedFiles.TryTake(out fileInfo))
+                try
                 {
-                    var report = _virusTotal.GetFileReport(fileInfo);
-                    if (report.ResponseCode == ReportResponseCode.Present)
+                    WorkOnNextItem();
+                }
+                catch (RateLimitException)
+                {
+                    _waitTime += 1000;
+                }
+                catch
+                {
+                }
+                if (_waitTime < DefaultWaitTime)
+                {
+                    _waitTime = DefaultWaitTime;
+                }
+                Thread.Sleep(1);
+            }
+        }
+
+        private void WorkOnNextItem()
+        {
+            FileInfo fileInfo;
+            if (_queuedFiles.TryTake(out fileInfo))
+            {
+                if (!fileInfo.Exists)
+                {
+                    return;
+                }
+                if (_recentScanHashes.Contains(HashHelper.GetSHA256(fileInfo)))
+                {
+                    return;
+                }
+                var report = _virusTotal.GetFileReport(fileInfo);
+                _recentScanHashes.Add(report.SHA256);
+                
+                if (report.ResponseCode == ReportResponseCode.Present)
+                {
+                    OnNewDefinition(new VirusDefinition
                     {
-                        OnNewDefinition(new VirusDefinition
-                        {
-                            FileName = fileInfo.Name,
-                            Hash = report.SHA256,
-                            ScanResults = report.Scans.Select(ConvertScanEngineToScanResult).ToList()
-                        });
-                        if (report.Scans.Any(s => s.Detected))
-                        {
-                            TriggerVirusFound(fileInfo, report);
-                        }
-                        _waitTime /= 2;
-                    }
-                    else if (report.ResponseCode == ReportResponseCode.Error)
+                        FileName = fileInfo.Name,
+                        Hash = report.SHA256,
+                        ScanResults = report.Scans.Select(ConvertScanEngineToScanResult).ToList()
+                    });
+                    if (report.Scans.Any(s => s.Detected))
                     {
-                        _waitTime *= 2;
+                        TriggerVirusFound(fileInfo, report);
                     }
-                    if (_waitTime < DefaultWaitTime)
-                    {
-                        _waitTime = DefaultWaitTime;
-                    }
+                    _waitTime -= 1000;
                 }
                 Thread.Sleep(_waitTime);
             }
@@ -99,8 +127,14 @@ namespace VirusTotalScanner.Scanning.VirusTotal
             };
         }
 
+        public int CurrentQueueCount 
+        {
+            get { return _queuedFiles.Count; }
+        }
+
         protected virtual void OnNewDefinition(VirusDefinition virusDefinition)
         {
+            Debug.WriteLine("New Virus definition in database for: " + virusDefinition.FileName);
             if (NewDefinition != null)
             {
                 NewDefinition(this, new NewDefinitionEventHandlerArgs

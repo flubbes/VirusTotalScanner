@@ -55,6 +55,8 @@
             this.tbxTotalScans = new System.Windows.Forms.TextBox();
             this.lblTotalAlerts = new System.Windows.Forms.Label();
             this.tbxTotalAlerts = new System.Windows.Forms.TextBox();
+            this.lblFilesInQueue = new System.Windows.Forms.Label();
+            this.tbxFilesInQueue = new System.Windows.Forms.TextBox();
             this.mainMenuStrip.SuspendLayout();
             this.grpbxStats.SuspendLayout();
             this.SuspendLayout();
@@ -204,6 +206,8 @@
             // 
             // grpbxStats
             // 
+            this.grpbxStats.Controls.Add(this.lblFilesInQueue);
+            this.grpbxStats.Controls.Add(this.tbxFilesInQueue);
             this.grpbxStats.Controls.Add(this.label3);
             this.grpbxStats.Controls.Add(this.textBox1);
             this.grpbxStats.Controls.Add(this.label1);
@@ -271,6 +275,24 @@
             this.tbxTotalAlerts.Size = new System.Drawing.Size(77, 20);
             this.tbxTotalAlerts.TabIndex = 0;
             // 
+            // lblFilesInQueue
+            // 
+            this.lblFilesInQueue.AutoSize = true;
+            this.lblFilesInQueue.Location = new System.Drawing.Point(3, 87);
+            this.lblFilesInQueue.Name = "lblFilesInQueue";
+            this.lblFilesInQueue.Size = new System.Drawing.Size(75, 13);
+            this.lblFilesInQueue.TabIndex = 7;
+            this.lblFilesInQueue.Text = "Files in queue:";
+            // 
+            // tbxFilesInQueue
+            // 
+            this.tbxFilesInQueue.Enabled = false;
+            this.tbxFilesInQueue.Location = new System.Drawing.Point(85, 84);
+            this.tbxFilesInQueue.Name = "tbxFilesInQueue";
+            this.tbxFilesInQueue.ReadOnly = true;
+            this.tbxFilesInQueue.Size = new System.Drawing.Size(77, 20);
+            this.tbxFilesInQueue.TabIndex = 6;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -327,6 +349,8 @@
         private System.Windows.Forms.TextBox tbxTotalScans;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblFilesInQueue;
+        private System.Windows.Forms.TextBox tbxFilesInQueue;
     }
 }
 

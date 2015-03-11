@@ -86,12 +86,14 @@
     <Compile Include="Monitoring\NewAlertEventHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scanning\NewFileScanEventHandler.cs" />
+    <Compile Include="Scanning\NewFileScanEventHandlerArgs.cs" />
     <Compile Include="Support\VirusScannerSettings.cs" />
     <EmbeddedResource Include="Forms\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Scanning\DetectedVirus.cs" />
-    <Compile Include="Scanning\VirusFoundEvenHandler.cs" />
+    <Compile Include="Scanning\VirusFoundEventHandler.cs" />
     <Compile Include="Scanning\VirusFoundEventHandlerArgs.cs" />
     <Compile Include="Scanning\VirusTotal\NewDefinitionEventHandler.cs" />
     <Compile Include="Scanning\VirusTotal\NewDefinitionEventHandlerArgs.cs" />

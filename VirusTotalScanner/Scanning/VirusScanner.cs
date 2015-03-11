@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,18 +14,23 @@ namespace VirusTotalScanner.Scanning
         private bool _shouldStopRunning;
         private readonly ConcurrentBag<string> _fileQueue;
         private readonly CachedDefinitions _localStorage;
-        private readonly VirusTotalQueue _virusTotalQueue;
+        public  VirusTotalQueue VirusTotalQueue { get; private set; }
+        public event NewFileScanEventHandler NewFileScan;
 
         public VirusScanner()
         {
-            _virusTotalQueue = new VirusTotalQueue(OnVirusFound);
+            VirusTotalQueue = new VirusTotalQueue(OnVirusFound);
             _localStorage = new CachedDefinitions();
             _fileQueue = new ConcurrentBag<string>();
-            _virusTotalQueue.NewDefinition += _virusTotalQueue_NewDefinition;
+            VirusTotalQueue.NewDefinition += VirusTotalQueue_NewDefinition;
         }
 
-        void _virusTotalQueue_NewDefinition(object sender, NewDefinitionEventHandlerArgs e)
+        private void VirusTotalQueue_NewDefinition(object sender, NewDefinitionEventHandlerArgs e)
         {
+            OnNewFileScan(new NewFileScanEventHandlerArgs
+            {
+                VirusDefinition = e.VirusDefinition
+            });
             _localStorage.Definitions.Add(e.VirusDefinition);
         }
 
@@ -35,11 +39,11 @@ namespace VirusTotalScanner.Scanning
             get { return _localStorage.Definitions; }
         }
 
-        public event VirusFoundEvenHandler VirusFound;
+        public event VirusFoundEventHandler VirusFound;
 
         public void Start(string virusTotalApiKey)
         {
-            _virusTotalQueue.Start(virusTotalApiKey);
+            VirusTotalQueue.Start(virusTotalApiKey);
             _localStorage.Load();
             _shouldStopRunning = false;
             new Thread(ThreadMethod).Start();
@@ -71,7 +75,13 @@ namespace VirusTotalScanner.Scanning
         {
             while (!_fileQueue.IsEmpty)
             {
-                WorkOnNextItemInQueue();
+                try
+                {
+                    WorkOnNextItemInQueue();
+                }
+                catch
+                {
+                }
             }
         }
 
@@ -98,13 +108,17 @@ namespace VirusTotalScanner.Scanning
             }
             else
             {
-                _virusTotalQueue.Enqueue(fileInfo);
+                VirusTotalQueue.Enqueue(fileInfo);
             }
         }
 
         private void AlertOnPositive(string sha256Hash, string pathToFile)
         {
             var definition = _localStorage.Definitions.Single(sr => sr.Hash == sha256Hash);
+            OnNewFileScan(new NewFileScanEventHandlerArgs
+            {
+                VirusDefinition = definition
+            });
             if (definition.ScanResults.Any(sr => sr.IsVirus))
             {
                 OnVirusFound(new DetectedVirus
@@ -112,13 +126,13 @@ namespace VirusTotalScanner.Scanning
                     Path = pathToFile,
                     VirusName = DetectedVirus.GenerateName(definition)
                 });
-            }
+            }            
         }
 
         public void Stop()
         {
             _shouldStopRunning = true;
-            _virusTotalQueue.Stop();
+            VirusTotalQueue.Stop();
             _localStorage.Save();
         }
 
@@ -130,6 +144,14 @@ namespace VirusTotalScanner.Scanning
                 {
                     Virus = virus
                 });
+            }
+        }
+
+        protected virtual void OnNewFileScan(NewFileScanEventHandlerArgs e)
+        {
+            if (NewFileScan != null)
+            {
+                NewFileScan(this, e);
             }
         }
     }

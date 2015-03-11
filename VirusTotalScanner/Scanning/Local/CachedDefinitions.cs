@@ -22,7 +22,7 @@ namespace VirusTotalScanner.Scanning.Local
 
         public void Save()
         {
-            File.WriteAllText(VirusDbFileName, JsonConvert.SerializeObject(Definitions));
+            File.WriteAllText(VirusDbFileName, JsonConvert.SerializeObject(Definitions, Formatting.Indented));
         }
     }
 }
