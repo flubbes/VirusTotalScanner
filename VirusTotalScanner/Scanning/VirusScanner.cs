@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using VirusTotalNET;
-using VirusTotalNET.Objects;
 using VirusTotalScanner.Scanning.Local;
 using VirusTotalScanner.Scanning.VirusTotal;
 
@@ -19,7 +18,7 @@ namespace VirusTotalScanner.Scanning
 
         public VirusScanner(string virusTotalApiKey)
         {
-            _virusTotalQueue = new VirusTotalQueue(virusTotalApiKey);
+            _virusTotalQueue = new VirusTotalQueue(OnVirusFound);
             _localStorage = new CachedDefinitions();
             _fileQueue = new ConcurrentBag<string>();
         }
@@ -70,7 +69,7 @@ namespace VirusTotalScanner.Scanning
                 return;
             }
             var fileInfo = new FileInfo(currentFile);
-            if (fileInfo.Length <= 100*1024*1024) //100mb
+            if (fileInfo.Length <= 100*1024*1024 && fileInfo.Length != 0) //100mb
             {
                 HandleFile(fileInfo);
             }
