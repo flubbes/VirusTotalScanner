@@ -102,6 +102,8 @@
   <ItemGroup>
     <Content Include="Assets\favicon.ico" />
     <Content Include="Assets\VirusTotal_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Scanning\VirusTotal\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

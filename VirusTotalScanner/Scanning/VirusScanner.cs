@@ -1,18 +1,28 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.IO;
 using System.Threading;
+using VirusTotalNET;
+using VirusTotalNET.Objects;
+using VirusTotalScanner.Scanning.Local;
 
 namespace VirusTotalScanner.Scanning
 {
     public class VirusScanner
     {
         private bool shouldStopRunning;
-        private readonly ConcurrentBag<string> FileQueue;
+        private readonly ConcurrentBag<string> _fileQueue;
+        private readonly VirusTotal _virusTotal;
+        private readonly CachedDefinitions _localStorage;
 
-        public VirusScanner()
+        public VirusScanner(string virusTotalApiKey)
         {
-            FileQueue = new ConcurrentBag<string>();
+            _localStorage = new CachedDefinitions();
+            _virusTotal = new VirusTotal(virusTotalApiKey);
+            _fileQueue = new ConcurrentBag<string>();
         }
+
+        public event VirusFoundEvenHandler VirusFound;
 
         public void Start()
         {
@@ -22,14 +32,14 @@ namespace VirusTotalScanner.Scanning
 
         public void Enqueue(string path)
         {
-            FileQueue.Add(path);
+            _fileQueue.Add(path);
         }
 
         public int QueueCount
         {
             get
             {
-                return FileQueue.Count; 
+                return _fileQueue.Count; 
             }
         }
 
@@ -37,15 +47,33 @@ namespace VirusTotalScanner.Scanning
         {
             while (!shouldStopRunning)
             {
-                while (!FileQueue.IsEmpty)
+                WorkOnFileQueue();
+                Thread.Sleep(500);
+            }
+        }
+
+        private void WorkOnFileQueue()
+        {
+            while (!_fileQueue.IsEmpty)
+            {
+                WorkOnNextItemInQueue();
+            }
+        }
+
+        private void WorkOnNextItemInQueue()
+        {
+            string currentFile;
+            if (_fileQueue.TryTake(out currentFile))
+            {
+                var fileInfo = new FileInfo(currentFile);
+                if (fileInfo.Length <= 100*1024*1024) //100mb
                 {
-                    string currentFile;
-                    if (FileQueue.TryTake(out currentFile))
+                    var sha256Hash = HashHelper.GetSHA256(fileInfo);
+                    if (_localStorage.Definitions.Exists(sr => sr.Hash == sha256Hash))
                     {
                         
                     }
                 }
-                Thread.Sleep(500);
             }
         }
 
@@ -53,5 +81,12 @@ namespace VirusTotalScanner.Scanning
         {
             shouldStopRunning = true;
         }
+    }
+
+    public delegate void VirusFoundEvenHandler(object sender, VirusFoundEventHandlerArgs e);
+
+    public class VirusFoundEventHandlerArgs : EventArgs
+    {
+        public VirusDefinition VirusDefinition { get; set; }
     }
 }
