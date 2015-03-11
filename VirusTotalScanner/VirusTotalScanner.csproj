@@ -50,13 +50,15 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Monitoring\AlertBehaviors\FileAlertBehavior.cs" />
+    <Compile Include="Monitoring\AlertBehaviors\NoMatchingBehavior.cs" />
     <Compile Include="Monitoring\Alerts\ChangeAlert.cs" />
     <Compile Include="Monitoring\Alerts\CreationAlert.cs" />
     <Compile Include="Monitoring\Alerts\IAlert.cs" />
     <Compile Include="Monitoring\Alerts\IFileAlert.cs" />
     <Compile Include="Monitoring\FileSystemMonitoring\FileSystemMonitoringUnit.cs" />
     <Compile Include="Monitoring\ISubsystemMonitoringUnit.cs" />
-    <Compile Include="Monitoring\IAlertBehavior.cs" />
+    <Compile Include="Monitoring\AlertBehaviors\IAlertBehavior.cs" />
     <Compile Include="Monitoring\MonitoringUnitController.cs" />
     <Compile Include="Monitoring\NewAlertEventArgs.cs" />
     <Compile Include="Monitoring\NewAlertEventHandler.cs" />

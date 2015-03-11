@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
+using VirusTotalScanner.Monitoring.AlertBehaviors;
 
 namespace VirusTotalScanner.Monitoring
 {
@@ -18,7 +18,13 @@ namespace VirusTotalScanner.Monitoring
 
         public void OnNewAlert(object sender, NewAlertEventArgs e)
         {
-            
+            var chosenBehavior = AlertBehaviors.FirstOrDefault(behavior => behavior.IsMatching(e.Alert));
+            if (chosenBehavior != null)
+            {
+                chosenBehavior.HandleAlert(e.Alert);
+                return;
+            }
+            NoMatchingBehaviorBehavior.HandleAlert(e.Alert);
         }
 
         public List<ISubsystemMonitoringUnit> Units { get; private set; }
@@ -27,6 +33,8 @@ namespace VirusTotalScanner.Monitoring
         {
             get;
             private set;
-        } 
+        }
+
+        public NoMatchingBehavior NoMatchingBehaviorBehavior { get; set; }
     }
 }
