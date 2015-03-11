@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing.Text;
 
 namespace VirusTotalScanner.Monitoring
@@ -15,7 +16,7 @@ namespace VirusTotalScanner.Monitoring
             }
         }
 
-        public void NewAlert(object sender, NewAlertEventArgs e)
+        public void OnNewAlert(object sender, NewAlertEventArgs e)
         {
             
         }
