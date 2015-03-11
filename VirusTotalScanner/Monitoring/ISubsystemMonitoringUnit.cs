@@ -2,7 +2,7 @@
 
 namespace VirusTotalScanner.Monitoring
 {
-    interface ISubsystemMonitoringUnit
+    public interface ISubsystemMonitoringUnit
     {
         event EventHandler NewAlert;
         bool IsRunning { get; set; }

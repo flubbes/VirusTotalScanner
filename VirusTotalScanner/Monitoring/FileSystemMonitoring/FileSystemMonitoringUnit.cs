@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace VirusTotalScanner.Monitoring
+namespace VirusTotalScanner.Monitoring.FileSystemMonitoring
 {
     class FileSystemMonitoringUnit : ISubsystemMonitoringUnit
     {

@@ -50,7 +50,9 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Monitoring\FileSystemMonitoringUnit.cs" />
+    <Compile Include="Monitoring\Alerts\IAlert.cs" />
+    <Compile Include="Monitoring\Alerts\IFileAlert.cs" />
+    <Compile Include="Monitoring\FileSystemMonitoring\FileSystemMonitoringUnit.cs" />
     <Compile Include="Monitoring\ISubsystemMonitoringUnit.cs" />
     <Compile Include="Monitoring\IAlertBehavior.cs" />
     <Compile Include="Monitoring\MonitoringUnitController.cs" />
@@ -80,9 +82,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Monitoring\FileSystemMonitoring\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
