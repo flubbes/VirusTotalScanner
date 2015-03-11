@@ -1,0 +1,160 @@
+<Project>
+  <Name>VirusTotalLiveScanner</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>ClassDiagram</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>ChangeAlert</Name>
+        <Access>Public</Access>
+        <Location left="10" top="341" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public string Path { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CreationAlert</Name>
+        <Access>Public</Access>
+        <Location left="10" top="513" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public string Path { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IFileAlert</Name>
+        <Access>Public</Access>
+        <Location left="208" top="408" />
+        <Size width="162" height="119" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">string Path { get; set; }</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ISubsystemMonitoringUnit</Name>
+        <Access>Public</Access>
+        <Location left="483" top="230" />
+        <Size width="196" height="112" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">bool IsRunning { get; set; }</Member>
+        <Member type="Method">void Start()</Member>
+        <Member type="Method">void Stop()</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IAlert</Name>
+        <Access>Public</Access>
+        <Location left="431" top="408" />
+        <Size width="162" height="119" />
+        <Collapsed>False</Collapsed>
+      </Entity>
+      <Entity type="Class">
+        <Name>MonitoringUnitController</Name>
+        <Access>Public</Access>
+        <Location left="43" top="52" />
+        <Size width="296" height="121" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public List&lt;ISubsystemMonitoringUnit&gt; Units { get; set; }</Member>
+        <Member type="Property">public List&lt;IAlertBehavior&gt; AlertBehaviors { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>FileAlertBehavior</Name>
+        <Access>Public</Access>
+        <Location left="763" top="456" />
+        <Size width="203" height="111" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void HandleAlert(IAlert alert)</Member>
+        <Member type="Method">public bool IsMatching()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IAlertBehavior</Name>
+        <Access>Public</Access>
+        <Location left="736" top="230" />
+        <Size width="203" height="153" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">void HandleAlert(IAlert alert)</Member>
+        <Member type="Method">bool IsMatching()</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>FileSystemMonitoringUnit</Name>
+        <Access>Public</Access>
+        <Location left="220" top="230" />
+        <Size width="196" height="128" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public bool IsRunning { get; set; }</Member>
+        <Member type="Method">public void Start()</Member>
+        <Member type="Method">public void Stop()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>VirusTotal</Name>
+        <Access>Public</Access>
+        <Location left="865" top="12" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public void ExternalAPI()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CachedDefinitions</Name>
+        <Access>Public</Access>
+        <Location left="681" top="122" />
+        <Size width="162" height="94" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>VirusDefinition</Name>
+        <Access>Public</Access>
+        <Location left="505" top="30" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public string Hash { get; set; }</Member>
+        <Member type="Property">public string FileName { get; set; }</Member>
+        <Member type="Property">public int UpVotes { get; set; }</Member>
+        <Member type="Property">public int DownVotes { get; set; }</Member>
+        <Member type="Property">public List&lt;ScanReh&gt; ScanResults { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Realization" first="0" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="1" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="2" second="4">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="6" second="7">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Realization" first="8" second="3">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="8" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="5" second="8">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Association</AssociationType>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
