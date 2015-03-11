@@ -1,4 +1,4 @@
-﻿namespace VirusTotalScanner
+﻿namespace VirusTotalScanner.Forms
 {
     partial class FormMain
     {
@@ -30,45 +30,47 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lvwAlertLog = new System.Windows.Forms.ListView();
-            this.lvwScanLog = new System.Windows.Forms.ListView();
-            this.notifierIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.lblAlerts = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.grpbxStats = new System.Windows.Forms.GroupBox();
+            this.lvwScanLog = new System.Windows.Forms.ListView();
             this.colScanType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colScanFile = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colScanTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colScanResult = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colScanHits = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tbxTotalAlerts = new System.Windows.Forms.TextBox();
-            this.lblTotalAlerts = new System.Windows.Forms.Label();
+            this.colScanResult = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.notifierIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.lblAlerts = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.grpbxStats = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbxTotalScans = new System.Windows.Forms.TextBox();
-            this.menuStrip1.SuspendLayout();
+            this.lblTotalAlerts = new System.Windows.Forms.Label();
+            this.tbxTotalAlerts = new System.Windows.Forms.TextBox();
+            this.mainMenuStrip.SuspendLayout();
             this.grpbxStats.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // mainMenuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(984, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            this.menuStrip1.Resize += new System.EventHandler(this.menuStrip1_Resize);
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(984, 24);
+            this.mainMenuStrip.TabIndex = 0;
+            this.mainMenuStrip.Text = "menuStrip1";
+            this.mainMenuStrip.Resize += new System.EventHandler(this.menuStrip1_Resize);
             // 
             // fileToolStripMenuItem
             // 
@@ -84,6 +86,20 @@
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // lvwAlertLog
             // 
@@ -101,6 +117,21 @@
             this.lvwAlertLog.TabIndex = 1;
             this.lvwAlertLog.UseCompatibleStateImageBehavior = false;
             this.lvwAlertLog.View = System.Windows.Forms.View.Details;
+            // 
+            // colType
+            // 
+            this.colType.Text = "Type";
+            this.colType.Width = 50;
+            // 
+            // colFile
+            // 
+            this.colFile.Text = "File";
+            this.colFile.Width = 150;
+            // 
+            // colTime
+            // 
+            this.colTime.Text = "Time";
+            this.colTime.Width = 100;
             // 
             // lvwScanLog
             // 
@@ -120,6 +151,31 @@
             this.lvwScanLog.TabIndex = 2;
             this.lvwScanLog.UseCompatibleStateImageBehavior = false;
             this.lvwScanLog.View = System.Windows.Forms.View.Details;
+            // 
+            // colScanType
+            // 
+            this.colScanType.Text = "Type";
+            this.colScanType.Width = 50;
+            // 
+            // colScanFile
+            // 
+            this.colScanFile.Text = "File";
+            this.colScanFile.Width = 150;
+            // 
+            // colScanTime
+            // 
+            this.colScanTime.Text = "Time";
+            this.colScanTime.Width = 100;
+            // 
+            // colScanHits
+            // 
+            this.colScanHits.Text = "Hits";
+            this.colScanHits.Width = 50;
+            // 
+            // colScanResult
+            // 
+            this.colScanResult.Text = "Result";
+            this.colScanResult.Width = 80;
             // 
             // notifierIcon
             // 
@@ -142,39 +198,14 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(340, 40);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 13);
+            this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Scan Log";
-            // 
-            // colType
-            // 
-            this.colType.Text = "Type";
-            this.colType.Width = 50;
-            // 
-            // colFile
-            // 
-            this.colFile.Text = "File";
-            this.colFile.Width = 150;
-            // 
-            // colTime
-            // 
-            this.colTime.Text = "Time";
-            this.colTime.Width = 100;
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "About";
+            this.label2.Text = "Scans";
             // 
             // grpbxStats
             // 
+            this.grpbxStats.Controls.Add(this.label3);
+            this.grpbxStats.Controls.Add(this.textBox1);
             this.grpbxStats.Controls.Add(this.label1);
             this.grpbxStats.Controls.Add(this.tbxTotalScans);
             this.grpbxStats.Controls.Add(this.lblTotalAlerts);
@@ -186,48 +217,23 @@
             this.grpbxStats.TabStop = false;
             this.grpbxStats.Text = "Stats";
             // 
-            // colScanType
+            // label3
             // 
-            this.colScanType.Text = "Type";
-            this.colScanType.Width = 50;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(2, 65);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(77, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Viruses Found:";
             // 
-            // colScanFile
+            // textBox1
             // 
-            this.colScanFile.Text = "File";
-            this.colScanFile.Width = 150;
-            // 
-            // colScanTime
-            // 
-            this.colScanTime.Text = "Time";
-            this.colScanTime.Width = 100;
-            // 
-            // colScanResult
-            // 
-            this.colScanResult.Text = "Result";
-            this.colScanResult.Width = 80;
-            // 
-            // colScanHits
-            // 
-            this.colScanHits.Text = "Hits";
-            this.colScanHits.Width = 50;
-            // 
-            // tbxTotalAlerts
-            // 
-            this.tbxTotalAlerts.Enabled = false;
-            this.tbxTotalAlerts.Location = new System.Drawing.Point(72, 18);
-            this.tbxTotalAlerts.Name = "tbxTotalAlerts";
-            this.tbxTotalAlerts.ReadOnly = true;
-            this.tbxTotalAlerts.Size = new System.Drawing.Size(90, 20);
-            this.tbxTotalAlerts.TabIndex = 0;
-            // 
-            // lblTotalAlerts
-            // 
-            this.lblTotalAlerts.AutoSize = true;
-            this.lblTotalAlerts.Location = new System.Drawing.Point(3, 21);
-            this.lblTotalAlerts.Name = "lblTotalAlerts";
-            this.lblTotalAlerts.Size = new System.Drawing.Size(63, 13);
-            this.lblTotalAlerts.TabIndex = 1;
-            this.lblTotalAlerts.Text = "Total Alerts:";
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(85, 62);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(77, 20);
+            this.textBox1.TabIndex = 4;
             // 
             // label1
             // 
@@ -241,11 +247,29 @@
             // tbxTotalScans
             // 
             this.tbxTotalScans.Enabled = false;
-            this.tbxTotalScans.Location = new System.Drawing.Point(72, 40);
+            this.tbxTotalScans.Location = new System.Drawing.Point(85, 40);
             this.tbxTotalScans.Name = "tbxTotalScans";
             this.tbxTotalScans.ReadOnly = true;
-            this.tbxTotalScans.Size = new System.Drawing.Size(90, 20);
+            this.tbxTotalScans.Size = new System.Drawing.Size(77, 20);
             this.tbxTotalScans.TabIndex = 2;
+            // 
+            // lblTotalAlerts
+            // 
+            this.lblTotalAlerts.AutoSize = true;
+            this.lblTotalAlerts.Location = new System.Drawing.Point(3, 21);
+            this.lblTotalAlerts.Name = "lblTotalAlerts";
+            this.lblTotalAlerts.Size = new System.Drawing.Size(63, 13);
+            this.lblTotalAlerts.TabIndex = 1;
+            this.lblTotalAlerts.Text = "Total Alerts:";
+            // 
+            // tbxTotalAlerts
+            // 
+            this.tbxTotalAlerts.Enabled = false;
+            this.tbxTotalAlerts.Location = new System.Drawing.Point(85, 18);
+            this.tbxTotalAlerts.Name = "tbxTotalAlerts";
+            this.tbxTotalAlerts.ReadOnly = true;
+            this.tbxTotalAlerts.Size = new System.Drawing.Size(77, 20);
+            this.tbxTotalAlerts.TabIndex = 0;
             // 
             // FormMain
             // 
@@ -257,15 +281,17 @@
             this.Controls.Add(this.lblAlerts);
             this.Controls.Add(this.lvwScanLog);
             this.Controls.Add(this.lvwAlertLog);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.mainMenuStrip);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.mainMenuStrip;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(1000, 500);
             this.Name = "FormMain";
             this.Text = "VirusTotal Filesystem Scanner for Desktop";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
             this.grpbxStats.ResumeLayout(false);
             this.grpbxStats.PerformLayout();
             this.ResumeLayout(false);
@@ -275,7 +301,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip mainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.ListView lvwAlertLog;
@@ -298,6 +324,8 @@
         private System.Windows.Forms.TextBox tbxTotalAlerts;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbxTotalScans;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
