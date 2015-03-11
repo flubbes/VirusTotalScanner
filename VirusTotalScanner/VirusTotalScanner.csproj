@@ -85,6 +85,11 @@
     <EmbeddedResource Include="Forms\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Scanning\DetectedVirus.cs" />
+    <Compile Include="Scanning\VirusFoundEvenHandler.cs" />
+    <Compile Include="Scanning\VirusFoundEventHandlerArgs.cs" />
+    <Compile Include="Scanning\VirusTotal\NewDefinitionEventHandler.cs" />
+    <Compile Include="Scanning\VirusTotal\NewDefinitionEventHandlerArgs.cs" />
     <Compile Include="Scanning\VirusTotal\VirusTotalQueue.cs" />
     <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -123,9 +128,7 @@
     <Content Include="Assets\favicon.ico" />
     <Content Include="Assets\VirusTotal_Icon.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scanning\VirusTotal\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

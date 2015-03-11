@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -21,6 +22,17 @@ namespace VirusTotalScanner.Scanning
             _virusTotalQueue = new VirusTotalQueue(OnVirusFound);
             _localStorage = new CachedDefinitions();
             _fileQueue = new ConcurrentBag<string>();
+            _virusTotalQueue.NewDefinition += _virusTotalQueue_NewDefinition;
+        }
+
+        void _virusTotalQueue_NewDefinition(object sender, NewDefinitionEventHandlerArgs e)
+        {
+            _localStorage.Definitions.Add(e.VirusDefinition);
+        }
+
+        public IEnumerable<VirusDefinition> VirusDatabase
+        {
+            get { return _localStorage.Definitions; }
         }
 
         public event VirusFoundEvenHandler VirusFound;
@@ -80,7 +92,7 @@ namespace VirusTotalScanner.Scanning
             var sha256Hash = HashHelper.GetSHA256(fileInfo);
             if (_localStorage.Definitions.Exists(sr => sr.Hash == sha256Hash))
             {
-                AlertOnPositive(sha256Hash);
+                AlertOnPositive(sha256Hash, fileInfo.FullName);
             }
             else
             {
@@ -88,12 +100,16 @@ namespace VirusTotalScanner.Scanning
             }
         }
 
-        private void AlertOnPositive(string sha256Hash)
+        private void AlertOnPositive(string sha256Hash, string pathToFile)
         {
             var definition = _localStorage.Definitions.Single(sr => sr.Hash == sha256Hash);
             if (definition.ScanResults.Any(sr => sr.IsVirus))
             {
-                OnVirusFound(definition);
+                OnVirusFound(new DetectedVirus
+                {
+                    Path = pathToFile,
+                    VirusName = DetectedVirus.GenerateName(definition)
+                });
             }
         }
 
@@ -102,22 +118,15 @@ namespace VirusTotalScanner.Scanning
             _shouldStopRunning = true;
         }
 
-        protected virtual void OnVirusFound(VirusDefinition definition)
+        protected virtual void OnVirusFound(DetectedVirus virus)
         {
             if (VirusFound != null)
             {
                 VirusFound(this, new VirusFoundEventHandlerArgs
                 {
-                    VirusDefinition = definition
+                    Virus = virus
                 });
             }
         }
-    }
-
-    public delegate void VirusFoundEvenHandler(object sender, VirusFoundEventHandlerArgs e);
-
-    public class VirusFoundEventHandlerArgs : EventArgs
-    {
-        public VirusDefinition VirusDefinition { get; set; }
     }
 }
