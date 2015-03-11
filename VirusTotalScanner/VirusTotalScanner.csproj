@@ -50,6 +50,8 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Monitoring\Alerts\ChangeAlert.cs" />
+    <Compile Include="Monitoring\Alerts\CreationAlert.cs" />
     <Compile Include="Monitoring\Alerts\IAlert.cs" />
     <Compile Include="Monitoring\Alerts\IFileAlert.cs" />
     <Compile Include="Monitoring\FileSystemMonitoring\FileSystemMonitoringUnit.cs" />
