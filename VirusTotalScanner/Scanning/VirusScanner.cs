@@ -39,6 +39,7 @@ namespace VirusTotalScanner.Scanning
 
         public void Start()
         {
+            _localStorage.Load();
             _shouldStopRunning = false;
             new Thread(ThreadMethod).Start();
         }
@@ -116,6 +117,8 @@ namespace VirusTotalScanner.Scanning
         public void Stop()
         {
             _shouldStopRunning = true;
+            _virusTotalQueue.Stop();
+            _localStorage.Save();
         }
 
         protected virtual void OnVirusFound(DetectedVirus virus)

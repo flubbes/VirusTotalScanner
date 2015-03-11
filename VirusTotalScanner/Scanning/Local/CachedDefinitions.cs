@@ -10,5 +10,15 @@ namespace VirusTotalScanner.Scanning.Local
         }
 
         public List<VirusDefinition> Definitions { get; private set; }
+
+        public void Load()
+        {
+            //Definitions = 
+        }
+
+        public void Save()
+        {
+            
+        }
     }
 }
