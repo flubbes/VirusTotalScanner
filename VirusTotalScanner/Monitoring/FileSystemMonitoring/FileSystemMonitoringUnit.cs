@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using VirusTotalScanner.Monitoring.Alerts;
 
 namespace VirusTotalScanner.Monitoring.FileSystemMonitoring
@@ -14,17 +13,12 @@ namespace VirusTotalScanner.Monitoring.FileSystemMonitoring
         public FileSystemMonitoringUnit(string path)
         {
             FileSystemRoot = path;
-            Watcher = new FileSystemWatcher(FileSystemRoot);
-            Watcher.EnableRaisingEvents = true;
-            Watcher.IncludeSubdirectories = true;
-            Watcher.Changed += Watcher_Changed;
-            Watcher.Created += Watcher_Created;
-
         }
 
         void Watcher_Created(object sender, FileSystemEventArgs e)
         {
-            throw new NotImplementedException();
+            var alert = new CreationAlert(e.FullPath);
+            OnNewAlert(alert);
         }
 
         void Watcher_Changed(object sender, FileSystemEventArgs e)
@@ -35,19 +29,31 @@ namespace VirusTotalScanner.Monitoring.FileSystemMonitoring
 
         public void Start()
         {
+            Watcher = new FileSystemWatcher(FileSystemRoot)
+            {
+                EnableRaisingEvents = true,
+                IncludeSubdirectories = true
+            };
+
+            Watcher.Changed += Watcher_Changed;
+            Watcher.Created += Watcher_Created;
             IsRunning = true;
         }
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            Watcher.Dispose();
+            IsRunning = false;
         }
 
         private void OnNewAlert(IFileAlert alert)
         {
             if (NewAlert != null)
             {
-                NewAlert(this, new NewAlertEventArgs());
+                NewAlert(this, new NewAlertEventArgs
+                {
+                    Alert = alert
+                });
             }
         }
     }
