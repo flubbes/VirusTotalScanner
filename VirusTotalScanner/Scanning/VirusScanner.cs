@@ -17,7 +17,7 @@ namespace VirusTotalScanner.Scanning
         private readonly CachedDefinitions _localStorage;
         private readonly VirusTotalQueue _virusTotalQueue;
 
-        public VirusScanner(string virusTotalApiKey)
+        public VirusScanner()
         {
             _virusTotalQueue = new VirusTotalQueue(OnVirusFound);
             _localStorage = new CachedDefinitions();
@@ -37,8 +37,9 @@ namespace VirusTotalScanner.Scanning
 
         public event VirusFoundEvenHandler VirusFound;
 
-        public void Start()
+        public void Start(string virusTotalApiKey)
         {
+            _virusTotalQueue.Start(virusTotalApiKey);
             _localStorage.Load();
             _shouldStopRunning = false;
             new Thread(ThreadMethod).Start();

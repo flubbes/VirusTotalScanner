@@ -290,6 +290,7 @@
             this.MaximumSize = new System.Drawing.Size(1000, 500);
             this.Name = "FormMain";
             this.Text = "VirusTotal Filesystem Scanner for Desktop";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.grpbxStats.ResumeLayout(false);
