@@ -1,24 +1,26 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using VirusTotalNET;
 using VirusTotalNET.Objects;
 using VirusTotalScanner.Scanning.Local;
+using VirusTotalScanner.Scanning.VirusTotal;
 
 namespace VirusTotalScanner.Scanning
 {
     public class VirusScanner
     {
-        private bool shouldStopRunning;
+        private bool _shouldStopRunning;
         private readonly ConcurrentBag<string> _fileQueue;
-        private readonly VirusTotal _virusTotal;
         private readonly CachedDefinitions _localStorage;
+        private readonly VirusTotalQueue _virusTotalQueue;
 
         public VirusScanner(string virusTotalApiKey)
         {
+            _virusTotalQueue = new VirusTotalQueue(virusTotalApiKey);
             _localStorage = new CachedDefinitions();
-            _virusTotal = new VirusTotal(virusTotalApiKey);
             _fileQueue = new ConcurrentBag<string>();
         }
 
@@ -26,7 +28,7 @@ namespace VirusTotalScanner.Scanning
 
         public void Start()
         {
-            shouldStopRunning = false;
+            _shouldStopRunning = false;
             new Thread(ThreadMethod).Start();
         }
 
@@ -45,7 +47,7 @@ namespace VirusTotalScanner.Scanning
 
         private void ThreadMethod()
         {
-            while (!shouldStopRunning)
+            while (!_shouldStopRunning)
             {
                 WorkOnFileQueue();
                 Thread.Sleep(500);
@@ -63,23 +65,53 @@ namespace VirusTotalScanner.Scanning
         private void WorkOnNextItemInQueue()
         {
             string currentFile;
-            if (_fileQueue.TryTake(out currentFile))
+            if (!_fileQueue.TryTake(out currentFile))
             {
-                var fileInfo = new FileInfo(currentFile);
-                if (fileInfo.Length <= 100*1024*1024) //100mb
-                {
-                    var sha256Hash = HashHelper.GetSHA256(fileInfo);
-                    if (_localStorage.Definitions.Exists(sr => sr.Hash == sha256Hash))
-                    {
-                        
-                    }
-                }
+                return;
+            }
+            var fileInfo = new FileInfo(currentFile);
+            if (fileInfo.Length <= 100*1024*1024) //100mb
+            {
+                HandleFile(fileInfo);
+            }
+        }
+
+        private void HandleFile(FileInfo fileInfo)
+        {
+            var sha256Hash = HashHelper.GetSHA256(fileInfo);
+            if (_localStorage.Definitions.Exists(sr => sr.Hash == sha256Hash))
+            {
+                AlertOnPositive(sha256Hash);
+            }
+            else
+            {
+                _virusTotalQueue.Enqueue(fileInfo);
+            }
+        }
+
+        private void AlertOnPositive(string sha256Hash)
+        {
+            var definition = _localStorage.Definitions.Single(sr => sr.Hash == sha256Hash);
+            if (definition.ScanResults.Any(sr => sr.IsVirus))
+            {
+                OnVirusFound(definition);
             }
         }
 
         public void Stop()
         {
-            shouldStopRunning = true;
+            _shouldStopRunning = true;
+        }
+
+        protected virtual void OnVirusFound(VirusDefinition definition)
+        {
+            if (VirusFound != null)
+            {
+                VirusFound(this, new VirusFoundEventHandlerArgs
+                {
+                    VirusDefinition = definition
+                });
+            }
         }
     }
 

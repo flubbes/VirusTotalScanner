@@ -14,6 +14,6 @@ namespace VirusTotalScanner.Scanning.Local
         public string AntiVirus { get; set; }
         public string Definition { get; set; }
         public string Update { get; set; }
-        public bool IsPositive { get; set; }
+        public bool IsVirus { get; set; }
     }
 }
