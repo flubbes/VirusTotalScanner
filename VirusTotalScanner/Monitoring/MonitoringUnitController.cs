@@ -15,7 +15,7 @@ namespace VirusTotalScanner.Monitoring
             }
         }
 
-        public void NewAlert(object sender, NewAlertEventArgs e)
+        public void OnNewAlert(object sender, NewAlertEventArgs e)
         {
             
         }
