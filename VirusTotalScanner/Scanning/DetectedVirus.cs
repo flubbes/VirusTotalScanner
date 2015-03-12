@@ -12,12 +12,12 @@ namespace VirusTotalScanner.Scanning
 
         public static string GenerateName(FileReport report)
         {
-            return String.Concat(report.Scans.Select(s => s.Result));
+            return report.Scans.First(s => s.Result.Length > 0).Result;
         }
 
         public static string GenerateName(VirusDefinition definition)
         {
-            return String.Concat(definition.ScanResults.Select(s => s.Definition));
+            return definition.ScanResults.First(s => s.Definition.Length > 0).Definition;
         }
     }
 }

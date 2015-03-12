@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,6 +8,8 @@ using VirusTotalScanner.Monitoring.AlertBehaviors;
 using VirusTotalScanner.Monitoring.Alerts;
 using VirusTotalScanner.Monitoring.FileSystemMonitoring;
 using VirusTotalScanner.Scanning;
+using VirusTotalScanner.Scanning.Local;
+using VirusTotalScanner.Scanning.VirusTotal;
 using VirusTotalScanner.Support;
 
 namespace VirusTotalScanner.Forms
@@ -21,11 +24,14 @@ namespace VirusTotalScanner.Forms
 
         public FormMain()
         {
+            InitializeComponent();
             var drives = DriveInfo.GetDrives();
-            
+
             _scanner = new VirusScanner();
+            var fixedDrives = drives.Where(d => d.DriveType == DriveType.Fixed);
+            var fileSystemMonitoringUnits = fixedDrives.Select(drive => new FileSystemMonitoringUnit(drive.RootDirectory.FullName));
             _monitoringUnitController = new MonitoringUnitController(
-                drives.Where(d => d.DriveType == DriveType.Fixed).Select(drive => new FileSystemMonitoringUnit(drive.RootDirectory.FullName)),
+                fileSystemMonitoringUnits,
                 new IAlertBehavior[]
                 {
                     new FileAlertBehavior(_scanner) 
@@ -38,63 +44,125 @@ namespace VirusTotalScanner.Forms
             }
             var key = VirusScannerSettings.GetApiKeyFromFile();
             _scanner.Start(key);
+            _scanner.VirusTotalQueue.StateChanged += VirusTotalQueue_StateChanged;
             _monitoringUnitController.Start();
-            InitializeComponent();
+        }
+
+        void VirusTotalQueue_StateChanged(object sender, StateChangedEventArgs e)
+        {
+            HandleInvoke(() =>
+            {
+                switch (e.State)
+                {
+                    case ScannerState.Scanning:
+                        lblScannerState.ForeColor = Color.LimeGreen;
+                        lblScannerState.Text = "Scanning";
+                        break;
+                    case ScannerState.Idling:
+                        lblScannerState.ForeColor = Color.Orange;
+                        lblScannerState.Text = "Idling";
+                        break;
+                    case ScannerState.Waiting:
+                        lblScannerState.ForeColor = Color.Red;
+                        lblScannerState.Text = "Waiting";
+                        break;
+                }
+            });
+        }
+
+        private void HandleInvoke(Action act)
+        {
+            if (IsDisposed)
+            {
+                return;
+            }
+            try
+            {
+                if (InvokeRequired)
+                {
+                    Invoke(new MethodInvoker(act));
+                }
+                else
+                {
+                    act.Invoke();
+                }
+            }
+            catch
+            {}
         }
 
         void VirusTotalQueue_NewDefinition(object sender, NewFileScanEventHandlerArgs e)
         {
-            if (InvokeRequired)
+            HandleInvoke(() =>
             {
-                Invoke(new MethodInvoker(() => VirusTotalQueue_NewDefinition(sender, e)));
-                return;
-            }
-            scanCount ++;
-            var item = new ListViewItem("VirusTotal");
-            item.SubItems.Add(Path.GetFileName(e.VirusDefinition.FileName));
-            item.SubItems.Add(DateTime.Now.ToLongTimeString());
-            item.SubItems.Add(e.VirusDefinition.ScanResults.Count(s => s.IsVirus).ToString());
-            item.SubItems.Add(e.VirusDefinition.ScanResults.Any(s => s.IsVirus) ? "Yes" : "No");
-            lvwScanLog.Items.Add(item);
-            if (lvwScanLog.Items.Count > 20)
+                scanCount++;
+                var item = new ListViewItem(e.VirusDefinition.FileName);
+                item.SubItems.Add(DateTime.Now.ToLongTimeString());
+                var totalScans = e.VirusDefinition.ScanResults.Count;
+                item.SubItems.Add(e.VirusDefinition.ScanResults.Count(s => s.IsVirus) + "/" + (totalScans == 0 ? 57 : totalScans));
+                var virusPrognosis = CalculateVirusRisk(e.VirusDefinition);
+                item.SubItems.Add(virusPrognosis);
+                lvwScanLog.Items.Add(item);
+                if (lvwScanLog.Items.Count > 20)
+                {
+                    lvwScanLog.Items.RemoveAt(0);
+                }
+                tbxTotalScans.Text = scanCount.ToString();
+            });
+        }
+
+        private static string CalculateVirusRisk(VirusDefinition definition)
+        {
+            if (definition.ScanResults.Count == 0)
             {
-                lvwScanLog.Items.RemoveAt(0);
+                return "No Risk";
             }
-            tbxTotalScans.Text = scanCount.ToString();
+            var g = definition.ScanResults.Count;
+            var w = definition.ScanResults.Count(sr => sr.IsVirus);
+            var p = w*100/g;
+            if (p >= 50)
+            {
+                return "Infected";
+            }
+            if (p >= 1)
+            {
+                return "Risk";
+            }
+            return "No Risk";
         }
 
         void Unit_NewAlert(object sender, NewAlertEventArgs e)
         {
-            if (InvokeRequired)
+            HandleInvoke(() =>
             {
-                Invoke(new MethodInvoker(() => Unit_NewAlert(sender, e)));
-                return;
-            }
-            
-            var alert = e.Alert as IFileAlert;
-            if (alert != null)
-            {
-                alertCount++;
-                var item = new ListViewItem("File Alert");
-                item.SubItems.Add(Path.GetFileName(alert.Path));
-                item.SubItems.Add(DateTime.Now.ToLongTimeString());
-
-                lvwAlertLog.Items.Add(item);
-                if (lvwAlertLog.Items.Count > 20)
+                var alert = e.Alert as IFileAlert;
+                if (alert != null)
                 {
-                    lvwAlertLog.Items.RemoveAt(0);
+                    alertCount++;
+                    var alertType = alert is ChangeAlert ? "Change" : "Creation";
+                    var item = new ListViewItem(alertType);
+                    item.SubItems.Add(Path.GetFileName(alert.Path));
+                    item.SubItems.Add(DateTime.Now.ToLongTimeString());
+
+                    lvwAlertLog.Items.Add(item);
+                    if (lvwAlertLog.Items.Count > 20)
+                    {
+                        lvwAlertLog.Items.RemoveAt(0);
+                    }
+                    tbxTotalAlerts.Text = alertCount.ToString();
+                    tbxFilesInQueue.Text = _scanner.VirusTotalQueue.CurrentQueueCount.ToString();
                 }
-                tbxTotalAlerts.Text = alertCount.ToString();
-                tbxFilesInQueue.Text = _scanner.VirusTotalQueue.CurrentQueueCount.ToString();
-            }
+            });
         }
 
         void Scanner_VirusFound(object sender, VirusFoundEventHandlerArgs e)
         {
-            virusCount++;
-            var tipText = string.Format("Virus: {0}\nFound in File: {1}", e.Virus.VirusName, Path.GetFileName(e.Virus.Path));
-            notifierIcon.ShowBalloonTip(5000, "Virus found", tipText, ToolTipIcon.Warning);
-            textBox1.Text = virusCount.ToString();
+            HandleInvoke(() =>
+            {
+                tbxVirusesFound.Text = (++virusCount).ToString();
+                var tipText = string.Format("{0}\nIn File: {1}", e.Virus.VirusName, Path.GetFileName(e.Virus.Path));
+                notifierIcon.ShowBalloonTip(15000, "Virus found", tipText, ToolTipIcon.Warning);
+            });
         }
 
         private void quitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -129,6 +197,19 @@ namespace VirusTotalScanner.Forms
         {
             _monitoringUnitController.Stop();
             _scanner.Stop();
+        }
+
+        private void notifierIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            ShowWindow();
+        }
+
+        private void ShowWindow()
+        {
+            WindowState = FormWindowState.Normal;
+            TopMost = true;
+            TopMost = false;
+            ShowInTaskbar = true;
         }
     }
 }

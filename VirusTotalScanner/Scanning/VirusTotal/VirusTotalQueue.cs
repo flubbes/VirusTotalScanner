@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Windows.Forms;
 using VirusTotalNET;
 using VirusTotalNET.Exceptions;
 using VirusTotalNET.Objects;
@@ -23,6 +24,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
         private readonly Action<DetectedVirus> _virusFoundTrigger;
         public event NewDefinitionEventHandler NewDefinition;
         private List<string> _recentScanHashes;
+        public event StateChangedEventHandler StateChanged;
 
         public VirusTotalQueue(Action<DetectedVirus> virusFoundTrigger)
         {
@@ -30,11 +32,18 @@ namespace VirusTotalScanner.Scanning.VirusTotal
             _virusFoundTrigger = virusFoundTrigger;
             _queuedFiles = new ConcurrentBag<FileInfo>();
             _waitTime = DefaultWaitTime;
-            
         }
 
         public void Enqueue(FileInfo fileInfo)
         {
+            if (_queuedFiles.Any(f => f.FullName == fileInfo.FullName))
+            {
+                return;
+            }
+            if (!fileInfo.Exists)
+            {
+                return;
+            }
             _queuedFiles.Add(fileInfo);
         }
 
@@ -54,16 +63,25 @@ namespace VirusTotalScanner.Scanning.VirusTotal
         {
             while (!_shouldStopWorking)
             {
-                try
+                FileInfo fileInfo;
+                OnStateChanged(ScannerState.Idling);
+                if (_queuedFiles.TryTake(out fileInfo))
                 {
-                    WorkOnNextItem();
-                }
-                catch (RateLimitException)
-                {
-                    _waitTime += 1000;
-                }
-                catch
-                {
+                    try
+                    {
+
+                        WorkOnNextItem(fileInfo);
+                    }
+                    catch (RateLimitException)
+                    {
+                        Debug.WriteLine(_waitTime);
+                        _waitTime += 1000;
+                        _queuedFiles.Add(fileInfo);
+                        Thread.Sleep(_waitTime);
+                    }
+                    catch
+                    {
+                    }
                 }
                 if (_waitTime < DefaultWaitTime)
                 {
@@ -73,38 +91,35 @@ namespace VirusTotalScanner.Scanning.VirusTotal
             }
         }
 
-        private void WorkOnNextItem()
+        private void WorkOnNextItem(FileInfo fileInfo)
         {
-            FileInfo fileInfo;
-            if (_queuedFiles.TryTake(out fileInfo))
+            if (!fileInfo.Exists)
             {
-                if (!fileInfo.Exists)
-                {
-                    return;
-                }
-                if (_recentScanHashes.Contains(HashHelper.GetSHA256(fileInfo)))
-                {
-                    return;
-                }
-                var report = _virusTotal.GetFileReport(fileInfo);
-                _recentScanHashes.Add(report.SHA256);
-                
-                if (report.ResponseCode == ReportResponseCode.Present)
-                {
-                    OnNewDefinition(new VirusDefinition
-                    {
-                        FileName = fileInfo.Name,
-                        Hash = report.SHA256,
-                        ScanResults = report.Scans.Select(ConvertScanEngineToScanResult).ToList()
-                    });
-                    if (report.Scans.Any(s => s.Detected))
-                    {
-                        TriggerVirusFound(fileInfo, report);
-                    }
-                    _waitTime -= 1000;
-                }
-                Thread.Sleep(_waitTime);
+                return;
             }
+            var hash = HashHelper.GetSHA256(fileInfo);
+            if (_recentScanHashes.Contains(hash))
+            {
+                return;
+            }
+            OnStateChanged(ScannerState.Scanning);
+            var report = _virusTotal.GetFileReport(fileInfo);
+            _recentScanHashes.Add(hash);
+            if (report.ResponseCode == ReportResponseCode.Present)
+            {
+                if (report.Scans.Any(s => s.Detected))
+                {
+                    TriggerVirusFound(fileInfo, report);
+                }
+            }
+            _waitTime -= 1000;
+            OnNewDefinition(new VirusDefinition
+            {
+                FileName = fileInfo.Name,
+                Hash = hash,
+                ScanResults = report.Scans != null ? report.Scans.Select(ConvertScanEngineToScanResult).ToList() : new List<ScanResult>()
+            });
+            OnStateChanged(ScannerState.Waiting);
         }
 
         private void TriggerVirusFound(FileInfo fileInfo, FileReport report)
@@ -140,6 +155,17 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                 NewDefinition(this, new NewDefinitionEventHandlerArgs
                 {
                     VirusDefinition = virusDefinition
+                });
+            }
+        }
+
+        protected virtual void OnStateChanged(ScannerState scannerState)
+        {
+            if (StateChanged != null)
+            {
+                StateChanged(this, new StateChangedEventArgs
+                {
+                    State = scannerState
                 });
             }
         }
