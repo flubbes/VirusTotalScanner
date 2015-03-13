@@ -34,6 +34,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.virusHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lvwAlertLog = new System.Windows.Forms.ListView();
@@ -59,10 +61,11 @@
             this.tbxTotalScans = new System.Windows.Forms.TextBox();
             this.lblTotalAlerts = new System.Windows.Forms.Label();
             this.tbxTotalAlerts = new System.Windows.Forms.TextBox();
-            this.openHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.tbxScannerStateMenuBar = new System.Windows.Forms.ToolStripTextBox();
             this.mainMenuStrip.SuspendLayout();
             this.grpbxStats.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -72,7 +75,7 @@
             this.virusHistoryToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 29);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Size = new System.Drawing.Size(884, 24);
             this.mainMenuStrip.TabIndex = 0;
@@ -103,6 +106,20 @@
             this.virusHistoryToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.virusHistoryToolStripMenuItem.Text = "Virus History";
             // 
+            // openHistoryToolStripMenuItem
+            // 
+            this.openHistoryToolStripMenuItem.Name = "openHistoryToolStripMenuItem";
+            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.openHistoryToolStripMenuItem.Text = "Open History";
+            this.openHistoryToolStripMenuItem.Click += new System.EventHandler(this.openHistoryToolStripMenuItem_Click);
+            // 
+            // clearHistoryToolStripMenuItem
+            // 
+            this.clearHistoryToolStripMenuItem.Name = "clearHistoryToolStripMenuItem";
+            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.clearHistoryToolStripMenuItem.Text = "Clear History";
+            this.clearHistoryToolStripMenuItem.Click += new System.EventHandler(this.clearHistoryToolStripMenuItem_Click);
+            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
@@ -127,9 +144,9 @@
             this.lvwAlertLog.FullRowSelect = true;
             this.lvwAlertLog.GridLines = true;
             this.lvwAlertLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvwAlertLog.Location = new System.Drawing.Point(12, 56);
+            this.lvwAlertLog.Location = new System.Drawing.Point(12, 80);
             this.lvwAlertLog.Name = "lvwAlertLog";
-            this.lvwAlertLog.Size = new System.Drawing.Size(325, 393);
+            this.lvwAlertLog.Size = new System.Drawing.Size(325, 369);
             this.lvwAlertLog.TabIndex = 1;
             this.lvwAlertLog.UseCompatibleStateImageBehavior = false;
             this.lvwAlertLog.View = System.Windows.Forms.View.Details;
@@ -160,9 +177,9 @@
             this.lvwScanLog.FullRowSelect = true;
             this.lvwScanLog.GridLines = true;
             this.lvwScanLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvwScanLog.Location = new System.Drawing.Point(343, 56);
+            this.lvwScanLog.Location = new System.Drawing.Point(343, 80);
             this.lvwScanLog.Name = "lvwScanLog";
-            this.lvwScanLog.Size = new System.Drawing.Size(356, 393);
+            this.lvwScanLog.Size = new System.Drawing.Size(356, 369);
             this.lvwScanLog.TabIndex = 2;
             this.lvwScanLog.UseCompatibleStateImageBehavior = false;
             this.lvwScanLog.View = System.Windows.Forms.View.Details;
@@ -198,7 +215,7 @@
             // lblAlerts
             // 
             this.lblAlerts.AutoSize = true;
-            this.lblAlerts.Location = new System.Drawing.Point(10, 40);
+            this.lblAlerts.Location = new System.Drawing.Point(9, 64);
             this.lblAlerts.Name = "lblAlerts";
             this.lblAlerts.Size = new System.Drawing.Size(33, 13);
             this.lblAlerts.TabIndex = 3;
@@ -207,7 +224,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 40);
+            this.label2.Location = new System.Drawing.Point(340, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 4;
@@ -225,9 +242,9 @@
             this.grpbxStats.Controls.Add(this.tbxTotalScans);
             this.grpbxStats.Controls.Add(this.lblTotalAlerts);
             this.grpbxStats.Controls.Add(this.tbxTotalAlerts);
-            this.grpbxStats.Location = new System.Drawing.Point(705, 49);
+            this.grpbxStats.Location = new System.Drawing.Point(705, 74);
             this.grpbxStats.Name = "grpbxStats";
-            this.grpbxStats.Size = new System.Drawing.Size(168, 400);
+            this.grpbxStats.Size = new System.Drawing.Size(168, 375);
             this.grpbxStats.TabIndex = 5;
             this.grpbxStats.TabStop = false;
             this.grpbxStats.Text = "Stats";
@@ -326,19 +343,25 @@
             this.tbxTotalAlerts.TabIndex = 0;
             this.tbxTotalAlerts.Text = "0";
             // 
-            // openHistoryToolStripMenuItem
+            // menuStrip1
             // 
-            this.openHistoryToolStripMenuItem.Name = "openHistoryToolStripMenuItem";
-            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openHistoryToolStripMenuItem.Text = "Open History";
-            this.openHistoryToolStripMenuItem.Click += new System.EventHandler(this.openHistoryToolStripMenuItem_Click);
+            this.menuStrip1.BackColor = System.Drawing.Color.Green;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbxScannerStateMenuBar});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(884, 29);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // clearHistoryToolStripMenuItem
+            // tbxScannerStateMenuBar
             // 
-            this.clearHistoryToolStripMenuItem.Name = "clearHistoryToolStripMenuItem";
-            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.clearHistoryToolStripMenuItem.Text = "Clear History";
-            this.clearHistoryToolStripMenuItem.Click += new System.EventHandler(this.clearHistoryToolStripMenuItem_Click);
+            this.tbxScannerStateMenuBar.BackColor = System.Drawing.Color.Green;
+            this.tbxScannerStateMenuBar.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxScannerStateMenuBar.Name = "tbxScannerStateMenuBar";
+            this.tbxScannerStateMenuBar.ReadOnly = true;
+            this.tbxScannerStateMenuBar.Size = new System.Drawing.Size(200, 25);
+            this.tbxScannerStateMenuBar.Text = " Scanner State: ";
             // 
             // FormMain
             // 
@@ -351,6 +374,7 @@
             this.Controls.Add(this.lvwScanLog);
             this.Controls.Add(this.lvwAlertLog);
             this.Controls.Add(this.mainMenuStrip);
+            this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -364,6 +388,8 @@
             this.mainMenuStrip.PerformLayout();
             this.grpbxStats.ResumeLayout(false);
             this.grpbxStats.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -402,6 +428,8 @@
         private System.Windows.Forms.ToolStripMenuItem virusHistoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openHistoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearHistoryToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripTextBox tbxScannerStateMenuBar;
     }
 }
 
