@@ -1,4 +1,6 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -16,7 +18,7 @@ namespace VirusTotalScanner.Scanning
         private readonly CachedDefinitions _localStorage;
         public  VirusTotalQueue VirusTotalQueue { get; private set; }
         public event NewFileScanEventHandler NewFileScan;
-        public ConcurrentStack<DetectedVirus> FoundViruses { get; private set; }
+        public List<DetectedVirus> FoundViruses { get; private set; }
         private readonly string _foundVirusesFileName = "foundViruses.json";
 
         /// <summary>
@@ -36,11 +38,11 @@ namespace VirusTotalScanner.Scanning
         /// </summary>
         private void LoadFoundVirusesDatabase()
         {
-            FoundViruses = new ConcurrentStack<DetectedVirus>();
+            FoundViruses = new List<DetectedVirus>();
             if (File.Exists(_foundVirusesFileName))
             {
                 FoundViruses =
-                    JsonConvert.DeserializeObject<ConcurrentStack<DetectedVirus>>(File.ReadAllText(_foundVirusesFileName));
+                    JsonConvert.DeserializeObject<List<DetectedVirus>>(File.ReadAllText(_foundVirusesFileName));
             }
         }
 
@@ -159,7 +161,10 @@ namespace VirusTotalScanner.Scanning
                 OnVirusFound(new DetectedVirus
                 {
                     Path = pathToFile,
-                    VirusName = DetectedVirus.GenerateName(definition)
+                    VirusName = DetectedVirus.GenerateName(definition),
+                    DetectionTime = DateTime.Now,
+                    HitCount = scanResults.Count(sr => sr.IsVirus),
+                    ScanCount = scanResults.Count
                 });
             }            
         }

@@ -127,7 +127,10 @@ namespace VirusTotalScanner.Scanning.VirusTotal
             _virusFoundTrigger.Invoke(new DetectedVirus
             {
                 VirusName = DetectedVirus.GenerateName(report),
-                Path = fileInfo.FullName
+                Path = fileInfo.FullName,
+                DetectionTime = DateTime.Now,
+                HitCount = report.Positives,
+                ScanCount = report.Total
             });
         }
 

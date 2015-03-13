@@ -9,6 +9,9 @@ namespace VirusTotalScanner.Scanning
     {
         public string VirusName { get; set; }
         public string Path { get; set; }
+        public DateTime DetectionTime { get; set; }
+        public int HitCount { get; set; }
+        public int ScanCount { get; set; }
 
         public static string GenerateName(FileReport report)
         {
