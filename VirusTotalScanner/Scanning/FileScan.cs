@@ -1,4 +1,6 @@
-﻿namespace VirusTotalScanner.Scanning
+﻿using System.Windows.Forms;
+
+namespace VirusTotalScanner.Scanning
 {
     /// <summary>
     /// All data about a filescan
@@ -19,5 +21,29 @@
         /// The number of scanners that detected a virus in this file
         /// </summary>
         public int PositiveScans { get; set; }
+
+        public static string CalculateVirusRisk(FileScan definition)
+        {
+            if (definition.TotalScans == 0)
+            {
+                return "No Risk";
+            }
+            var percentageOfDetectedInfections = definition.PositiveScans * 100 / definition.TotalScans;
+            if (percentageOfDetectedInfections >= 50)
+            {
+                return "Infected";
+            }
+            return percentageOfDetectedInfections >= 1 ? "Risk" : "No Risk";
+        }
+
+        public static string CalculateVirusRisk(DetectedVirus virus)
+        {
+            return CalculateVirusRisk(new FileScan
+            {
+                Path = virus.Path,
+                PositiveScans = virus.HitCount,
+                TotalScans = virus.ScanCount
+            });
+        }
     }
 }

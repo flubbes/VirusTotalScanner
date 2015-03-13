@@ -108,7 +108,7 @@ namespace VirusTotalScanner.Forms
                 item.SubItems.Add(DateTime.Now.ToLongTimeString());
                 var totalScans = e.FileScan.TotalScans;
                 item.SubItems.Add(e.FileScan.PositiveScans + "/" + (totalScans == 0 ? 57 : totalScans));
-                var virusPrognosis = CalculateVirusRisk(e.FileScan);
+                var virusPrognosis = FileScan.CalculateVirusRisk(e.FileScan);
                 item.SubItems.Add(virusPrognosis);
                 lvwScanLog.Items.Add(item);
                 if (lvwScanLog.Items.Count > 20)
@@ -117,20 +117,6 @@ namespace VirusTotalScanner.Forms
                 }
                 tbxTotalScans.Text = scanCount.ToString();
             });
-        }
-
-        private static string CalculateVirusRisk(FileScan definition)
-        {
-            if (definition.TotalScans == 0)
-            {
-                return "No Risk";
-            }
-            var percentageOfDetectedInfections = definition.PositiveScans*100/definition.TotalScans;
-            if (percentageOfDetectedInfections >= 50)
-            {
-                return "Infected";
-            }
-            return percentageOfDetectedInfections >= 1 ? "Risk" : "No Risk";
         }
 
         void Unit_NewAlert(object sender, NewAlertEventArgs e)
@@ -147,7 +133,7 @@ namespace VirusTotalScanner.Forms
                     item.SubItems.Add(DateTime.Now.ToLongTimeString());
 
                     lvwAlertLog.Items.Add(item);
-                    if (lvwAlertLog.Items.Count > 20)
+                    if (lvwAlertLog.Items.Count > 10)
                     {
                         lvwAlertLog.Items.RemoveAt(0);
                     }
@@ -216,7 +202,7 @@ namespace VirusTotalScanner.Forms
 
         private void openHistoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var historyForm = new FormHistory();
+            var historyForm = new FormHistory(_scanner);
             historyForm.ShowDialog();
         }
 
