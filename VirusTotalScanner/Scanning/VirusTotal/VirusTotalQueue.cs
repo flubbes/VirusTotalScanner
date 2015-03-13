@@ -115,7 +115,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
             _waitTime -= 1000;
             OnNewDefinition(new VirusDefinition
             {
-                FileName = fileInfo.Name,
+                FileName = fileInfo.FullName,
                 Hash = hash,
                 ScanResults = report.Scans != null ? report.Scans.Select(ConvertScanEngineToScanResult).ToList() : new List<ScanResult>()
             });

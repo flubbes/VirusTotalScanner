@@ -1,10 +1,12 @@
 ﻿using System;
-using VirusTotalScanner.Scanning.Local;
 
 namespace VirusTotalScanner.Scanning
 {
     public class NewFileScanEventHandlerArgs : EventArgs
     {
-        public VirusDefinition VirusDefinition { get; set; }
+        /// <summary>
+        /// All data about the new file scan
+        /// </summary>
+        public FileScan FileScan { get; set; }
     }
 }

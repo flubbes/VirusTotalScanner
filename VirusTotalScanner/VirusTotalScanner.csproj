@@ -87,6 +87,7 @@
     <Compile Include="Monitoring\NewAlertEventHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scanning\FileScan.cs" />
     <Compile Include="Scanning\NewFileScanEventHandler.cs" />
     <Compile Include="Scanning\NewFileScanEventHandlerArgs.cs" />
     <Compile Include="Scanning\VirusTotal\StateChangedEventArgs.cs" />
