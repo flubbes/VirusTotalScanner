@@ -106,14 +106,14 @@
             // openHistoryToolStripMenuItem
             // 
             this.openHistoryToolStripMenuItem.Name = "openHistoryToolStripMenuItem";
-            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.openHistoryToolStripMenuItem.Text = "Open History";
             this.openHistoryToolStripMenuItem.Click += new System.EventHandler(this.openHistoryToolStripMenuItem_Click);
             // 
             // clearHistoryToolStripMenuItem
             // 
             this.clearHistoryToolStripMenuItem.Name = "clearHistoryToolStripMenuItem";
-            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.clearHistoryToolStripMenuItem.Text = "Clear History";
             this.clearHistoryToolStripMenuItem.Click += new System.EventHandler(this.clearHistoryToolStripMenuItem_Click);
             // 
@@ -141,9 +141,9 @@
             this.lvwAlertLog.FullRowSelect = true;
             this.lvwAlertLog.GridLines = true;
             this.lvwAlertLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvwAlertLog.Location = new System.Drawing.Point(14, 165);
+            this.lvwAlertLog.Location = new System.Drawing.Point(14, 152);
             this.lvwAlertLog.Name = "lvwAlertLog";
-            this.lvwAlertLog.Size = new System.Drawing.Size(325, 284);
+            this.lvwAlertLog.Size = new System.Drawing.Size(325, 297);
             this.lvwAlertLog.TabIndex = 1;
             this.lvwAlertLog.UseCompatibleStateImageBehavior = false;
             this.lvwAlertLog.View = System.Windows.Forms.View.Details;
@@ -199,7 +199,7 @@
             // colScanResult
             // 
             this.colScanResult.Text = "Result";
-            this.colScanResult.Width = 74;
+            this.colScanResult.Width = 100;
             // 
             // notifierIcon
             // 
@@ -212,7 +212,7 @@
             // lblAlerts
             // 
             this.lblAlerts.AutoSize = true;
-            this.lblAlerts.Location = new System.Drawing.Point(11, 149);
+            this.lblAlerts.Location = new System.Drawing.Point(11, 136);
             this.lblAlerts.Name = "lblAlerts";
             this.lblAlerts.Size = new System.Drawing.Size(33, 13);
             this.lblAlerts.TabIndex = 3;
@@ -221,7 +221,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 57);
+            this.label2.Location = new System.Drawing.Point(340, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 4;
@@ -237,9 +237,9 @@
             this.grpbxStats.Controls.Add(this.tbxTotalScans);
             this.grpbxStats.Controls.Add(this.lblTotalAlerts);
             this.grpbxStats.Controls.Add(this.tbxTotalAlerts);
-            this.grpbxStats.Location = new System.Drawing.Point(11, 67);
+            this.grpbxStats.Location = new System.Drawing.Point(14, 67);
             this.grpbxStats.Name = "grpbxStats";
-            this.grpbxStats.Size = new System.Drawing.Size(323, 79);
+            this.grpbxStats.Size = new System.Drawing.Size(325, 65);
             this.grpbxStats.TabIndex = 5;
             this.grpbxStats.TabStop = false;
             this.grpbxStats.Text = "Stats";
@@ -247,7 +247,7 @@
             // lblFilesInQueue
             // 
             this.lblFilesInQueue.AutoSize = true;
-            this.lblFilesInQueue.Location = new System.Drawing.Point(130, 47);
+            this.lblFilesInQueue.Location = new System.Drawing.Point(148, 40);
             this.lblFilesInQueue.Name = "lblFilesInQueue";
             this.lblFilesInQueue.Size = new System.Drawing.Size(75, 13);
             this.lblFilesInQueue.TabIndex = 7;
@@ -256,17 +256,17 @@
             // tbxFilesInQueue
             // 
             this.tbxFilesInQueue.Enabled = false;
-            this.tbxFilesInQueue.Location = new System.Drawing.Point(213, 44);
+            this.tbxFilesInQueue.Location = new System.Drawing.Point(231, 37);
             this.tbxFilesInQueue.Name = "tbxFilesInQueue";
             this.tbxFilesInQueue.ReadOnly = true;
-            this.tbxFilesInQueue.Size = new System.Drawing.Size(48, 20);
+            this.tbxFilesInQueue.Size = new System.Drawing.Size(59, 20);
             this.tbxFilesInQueue.TabIndex = 6;
             this.tbxFilesInQueue.Text = "0";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(130, 25);
+            this.label3.Location = new System.Drawing.Point(148, 18);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 13);
             this.label3.TabIndex = 5;
@@ -275,17 +275,17 @@
             // tbxVirusesFound
             // 
             this.tbxVirusesFound.Enabled = false;
-            this.tbxVirusesFound.Location = new System.Drawing.Point(213, 22);
+            this.tbxVirusesFound.Location = new System.Drawing.Point(231, 15);
             this.tbxVirusesFound.Name = "tbxVirusesFound";
             this.tbxVirusesFound.ReadOnly = true;
-            this.tbxVirusesFound.Size = new System.Drawing.Size(48, 20);
+            this.tbxVirusesFound.Size = new System.Drawing.Size(59, 20);
             this.tbxVirusesFound.TabIndex = 4;
             this.tbxVirusesFound.Text = "0";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 47);
+            this.label1.Location = new System.Drawing.Point(5, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 3;
@@ -294,17 +294,17 @@
             // tbxTotalScans
             // 
             this.tbxTotalScans.Enabled = false;
-            this.tbxTotalScans.Location = new System.Drawing.Point(76, 44);
+            this.tbxTotalScans.Location = new System.Drawing.Point(76, 37);
             this.tbxTotalScans.Name = "tbxTotalScans";
             this.tbxTotalScans.ReadOnly = true;
-            this.tbxTotalScans.Size = new System.Drawing.Size(48, 20);
+            this.tbxTotalScans.Size = new System.Drawing.Size(66, 20);
             this.tbxTotalScans.TabIndex = 2;
             this.tbxTotalScans.Text = "0";
             // 
             // lblTotalAlerts
             // 
             this.lblTotalAlerts.AutoSize = true;
-            this.lblTotalAlerts.Location = new System.Drawing.Point(6, 25);
+            this.lblTotalAlerts.Location = new System.Drawing.Point(6, 18);
             this.lblTotalAlerts.Name = "lblTotalAlerts";
             this.lblTotalAlerts.Size = new System.Drawing.Size(63, 13);
             this.lblTotalAlerts.TabIndex = 1;
@@ -313,10 +313,10 @@
             // tbxTotalAlerts
             // 
             this.tbxTotalAlerts.Enabled = false;
-            this.tbxTotalAlerts.Location = new System.Drawing.Point(76, 22);
+            this.tbxTotalAlerts.Location = new System.Drawing.Point(76, 15);
             this.tbxTotalAlerts.Name = "tbxTotalAlerts";
             this.tbxTotalAlerts.ReadOnly = true;
-            this.tbxTotalAlerts.Size = new System.Drawing.Size(48, 20);
+            this.tbxTotalAlerts.Size = new System.Drawing.Size(66, 20);
             this.tbxTotalAlerts.TabIndex = 0;
             this.tbxTotalAlerts.Text = "0";
             // 
@@ -358,7 +358,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenuStrip;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(900, 500);
+            this.MaximumSize = new System.Drawing.Size(750, 500);
             this.Name = "FormMain";
             this.Text = "VirusTotal Filesystem Scanner for Desktop";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
