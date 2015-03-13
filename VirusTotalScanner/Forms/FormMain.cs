@@ -211,5 +211,16 @@ namespace VirusTotalScanner.Forms
             TopMost = false;
             ShowInTaskbar = true;
         }
+
+        private void openHistoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var historyForm = new FormHistory();
+            historyForm.ShowDialog();
+        }
+
+        private void clearHistoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // clear the historyfile (?)
+        }
     }
 }

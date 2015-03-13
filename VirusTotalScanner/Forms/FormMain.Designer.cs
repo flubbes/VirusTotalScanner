@@ -33,6 +33,7 @@
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.virusHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lvwAlertLog = new System.Windows.Forms.ListView();
@@ -58,6 +59,8 @@
             this.tbxTotalScans = new System.Windows.Forms.TextBox();
             this.lblTotalAlerts = new System.Windows.Forms.Label();
             this.tbxTotalAlerts = new System.Windows.Forms.TextBox();
+            this.openHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.grpbxStats.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +69,7 @@
             // 
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.virusHistoryToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
@@ -89,6 +93,15 @@
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(97, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
+            // virusHistoryToolStripMenuItem
+            // 
+            this.virusHistoryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openHistoryToolStripMenuItem,
+            this.clearHistoryToolStripMenuItem});
+            this.virusHistoryToolStripMenuItem.Name = "virusHistoryToolStripMenuItem";
+            this.virusHistoryToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.virusHistoryToolStripMenuItem.Text = "Virus History";
             // 
             // settingsToolStripMenuItem
             // 
@@ -313,6 +326,20 @@
             this.tbxTotalAlerts.TabIndex = 0;
             this.tbxTotalAlerts.Text = "0";
             // 
+            // openHistoryToolStripMenuItem
+            // 
+            this.openHistoryToolStripMenuItem.Name = "openHistoryToolStripMenuItem";
+            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openHistoryToolStripMenuItem.Text = "Open History";
+            this.openHistoryToolStripMenuItem.Click += new System.EventHandler(this.openHistoryToolStripMenuItem_Click);
+            // 
+            // clearHistoryToolStripMenuItem
+            // 
+            this.clearHistoryToolStripMenuItem.Name = "clearHistoryToolStripMenuItem";
+            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearHistoryToolStripMenuItem.Text = "Clear History";
+            this.clearHistoryToolStripMenuItem.Click += new System.EventHandler(this.clearHistoryToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -372,6 +399,9 @@
         private System.Windows.Forms.TextBox tbxFilesInQueue;
         private System.Windows.Forms.Label lblScannerStateDesc;
         private System.Windows.Forms.Label lblScannerState;
+        private System.Windows.Forms.ToolStripMenuItem virusHistoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openHistoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearHistoryToolStripMenuItem;
     }
 }
 
