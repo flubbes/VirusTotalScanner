@@ -30,20 +30,25 @@ namespace VirusTotalScanner.Forms
 
         void FillListViewWithViruses()
         {
-            foreach (var virus in _scanner.FoundViruses)
+            this.HandleInvoke(() =>
             {
-                var item = new ListViewItem(Path.GetFileName(virus.Path));
-                var detectionTimeString = virus.DetectionTime.ToString(CultureInfo.InvariantCulture);
-                item.SubItems.Add(detectionTimeString);
-                item.SubItems.Add(virus.HitCount + "/" + virus.ScanCount);
-                item.SubItems.Add(FileScan.CalculateVirusRisk(virus));
-                item.SubItems.Add(virus.Path);
-            }
+                lvwVirusHistory.Items.Clear();
+                foreach (var virus in _scanner.FoundViruses)
+                {
+                    var item = new ListViewItem(Path.GetFileName(virus.Path));
+                    var detectionTimeString = virus.DetectionTime.ToString(CultureInfo.InvariantCulture);
+                    item.SubItems.Add(detectionTimeString);
+                    item.SubItems.Add(virus.HitCount + "/" + virus.ScanCount);
+                    item.SubItems.Add(FileScan.CalculateVirusRisk(virus));
+                    item.SubItems.Add(virus.Path);
+                    lvwVirusHistory.Items.Add(item);
+                }
+            });
         }
 
         private void closeWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            Close();
         }
     }
 }

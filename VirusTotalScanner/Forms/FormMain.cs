@@ -8,9 +8,9 @@ using VirusTotalScanner.Monitoring.AlertBehaviors;
 using VirusTotalScanner.Monitoring.Alerts;
 using VirusTotalScanner.Monitoring.FileSystemMonitoring;
 using VirusTotalScanner.Scanning;
-using VirusTotalScanner.Scanning.Local;
 using VirusTotalScanner.Scanning.VirusTotal;
 using VirusTotalScanner.Support;
+using VirusTotalScanner.Forms;
 
 namespace VirusTotalScanner.Forms
 {
@@ -50,7 +50,7 @@ namespace VirusTotalScanner.Forms
 
         void VirusTotalQueue_StateChanged(object sender, StateChangedEventArgs e)
         {
-            HandleInvoke(() =>
+            this.HandleInvoke(() =>
             {
                 switch (e.State)
                 {
@@ -73,27 +73,6 @@ namespace VirusTotalScanner.Forms
             });
         }
 
-        private void HandleInvoke(Action act)
-        {
-            if (IsDisposed)
-            {
-                return;
-            }
-            try
-            {
-                if (InvokeRequired)
-                {
-                    Invoke(new MethodInvoker(act));
-                }
-                else
-                {
-                    act.Invoke();
-                }
-            }
-            catch
-            {}
-        }
-
         /// <summary>
         /// The event that gets triggered when a new file scan occures
         /// </summary>
@@ -101,7 +80,7 @@ namespace VirusTotalScanner.Forms
         /// <param name="e">The data that got scanned</param>
         void VirusScanner_NewScanFile(object sender, NewFileScanEventHandlerArgs e)
         {
-            HandleInvoke(() =>
+            this.HandleInvoke(() =>
             {
                 scanCount++;
                 var item = new ListViewItem(Path.GetFileName(e.FileScan.Path));
@@ -121,7 +100,7 @@ namespace VirusTotalScanner.Forms
 
         void Unit_NewAlert(object sender, NewAlertEventArgs e)
         {
-            HandleInvoke(() =>
+            this.HandleInvoke(() =>
             {
                 var alert = e.Alert as IFileAlert;
                 if (alert != null)
@@ -145,7 +124,7 @@ namespace VirusTotalScanner.Forms
 
         void Scanner_VirusFound(object sender, VirusFoundEventHandlerArgs e)
         {
-            HandleInvoke(() =>
+            this.HandleInvoke(() =>
             {
                 tbxVirusesFound.Text = (++virusCount).ToString();
                 var tipText = string.Format("{0}\nIn File: {1}", e.Virus.VirusName, Path.GetFileName(e.Virus.Path));

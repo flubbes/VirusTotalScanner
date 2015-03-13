@@ -61,6 +61,7 @@
     <Compile Include="Forms\FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormExtensions.cs" />
     <Compile Include="Forms\FormHistory.cs">
       <SubType>Form</SubType>
     </Compile>

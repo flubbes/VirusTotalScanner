@@ -186,6 +186,7 @@ namespace VirusTotalScanner.Scanning
 
         protected virtual void OnVirusFound(DetectedVirus virus)
         {
+            FoundViruses.Add(virus);
             if (VirusFound != null)
             {
                 VirusFound(this, new VirusFoundEventHandlerArgs
