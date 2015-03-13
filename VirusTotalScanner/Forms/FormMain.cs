@@ -8,7 +8,6 @@ using VirusTotalScanner.Monitoring.AlertBehaviors;
 using VirusTotalScanner.Monitoring.Alerts;
 using VirusTotalScanner.Monitoring.FileSystemMonitoring;
 using VirusTotalScanner.Scanning;
-using VirusTotalScanner.Scanning.Local;
 using VirusTotalScanner.Scanning.VirusTotal;
 using VirusTotalScanner.Support;
 
@@ -174,7 +173,7 @@ namespace VirusTotalScanner.Forms
 
         private void notifierIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            this.WindowState = FormWindowState.Normal;
+            ShowWindow();
         }
 
         private void menuStrip1_Resize(object sender, EventArgs e)
@@ -223,6 +222,16 @@ namespace VirusTotalScanner.Forms
         private void clearHistoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // clear the historyfile (?)
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowWindow();
+        }
+
+        private void quitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
