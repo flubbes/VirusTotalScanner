@@ -61,8 +61,12 @@
             this.tbxTotalAlerts = new System.Windows.Forms.TextBox();
             this.menuStripScannerIndicator = new System.Windows.Forms.MenuStrip();
             this.lblScannerStateMenuBar = new System.Windows.Forms.Label();
+            this.contextMenuStripNotifier = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.quitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.grpbxStats.SuspendLayout();
+            this.contextMenuStripNotifier.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -106,14 +110,14 @@
             // openHistoryToolStripMenuItem
             // 
             this.openHistoryToolStripMenuItem.Name = "openHistoryToolStripMenuItem";
-            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openHistoryToolStripMenuItem.Text = "Open History";
             this.openHistoryToolStripMenuItem.Click += new System.EventHandler(this.openHistoryToolStripMenuItem_Click);
             // 
             // clearHistoryToolStripMenuItem
             // 
             this.clearHistoryToolStripMenuItem.Name = "clearHistoryToolStripMenuItem";
-            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.clearHistoryToolStripMenuItem.Text = "Clear History";
             this.clearHistoryToolStripMenuItem.Click += new System.EventHandler(this.clearHistoryToolStripMenuItem_Click);
             // 
@@ -203,6 +207,7 @@
             // 
             // notifierIcon
             // 
+            this.notifierIcon.ContextMenuStrip = this.contextMenuStripNotifier;
             this.notifierIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifierIcon.Icon")));
             this.notifierIcon.Text = "VirusTotal Filesystem Scanner for Desktop";
             this.notifierIcon.Visible = true;
@@ -340,6 +345,28 @@
             this.lblScannerStateMenuBar.TabIndex = 7;
             this.lblScannerStateMenuBar.Text = "Scanner State:";
             // 
+            // contextMenuStripNotifier
+            // 
+            this.contextMenuStripNotifier.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.quitToolStripMenuItem1});
+            this.contextMenuStripNotifier.Name = "contextMenuStripNotifier";
+            this.contextMenuStripNotifier.Size = new System.Drawing.Size(153, 70);
+            // 
+            // quitToolStripMenuItem1
+            // 
+            this.quitToolStripMenuItem1.Name = "quitToolStripMenuItem1";
+            this.quitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.quitToolStripMenuItem1.Text = "Quit";
+            this.quitToolStripMenuItem1.Click += new System.EventHandler(this.quitToolStripMenuItem1_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -366,6 +393,7 @@
             this.mainMenuStrip.PerformLayout();
             this.grpbxStats.ResumeLayout(false);
             this.grpbxStats.PerformLayout();
+            this.contextMenuStripNotifier.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,6 +432,9 @@
         private System.Windows.Forms.ToolStripMenuItem clearHistoryToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStripScannerIndicator;
         private System.Windows.Forms.Label lblScannerStateMenuBar;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripNotifier;
+        private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     }
 }
 
