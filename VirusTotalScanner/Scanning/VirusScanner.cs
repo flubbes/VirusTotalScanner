@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Newtonsoft.Json;
 using VirusTotalNET;
 using VirusTotalScanner.Scanning.Local;
 using VirusTotalScanner.Scanning.VirusTotal;
@@ -16,29 +16,58 @@ namespace VirusTotalScanner.Scanning
         private readonly CachedDefinitions _localStorage;
         public  VirusTotalQueue VirusTotalQueue { get; private set; }
         public event NewFileScanEventHandler NewFileScan;
+        public ConcurrentStack<DetectedVirus> FoundViruses { get; private set; }
+        private readonly string _foundVirusesFileName = "foundViruses.json";
 
+        /// <summary>
+        /// Initializes a new instance of the virus scanner
+        /// </summary>
         public VirusScanner()
         {
+            LoadFoundVirusesDatabase();
             VirusTotalQueue = new VirusTotalQueue(OnVirusFound);
             _localStorage = new CachedDefinitions();
             _fileQueue = new ConcurrentBag<string>();
             VirusTotalQueue.NewDefinition += VirusTotalQueue_NewDefinition;
         }
 
+        /// <summary>
+        /// Loads the viruses found in previous sessions
+        /// </summary>
+        private void LoadFoundVirusesDatabase()
+        {
+            FoundViruses = new ConcurrentStack<DetectedVirus>();
+            if (File.Exists(_foundVirusesFileName))
+            {
+                FoundViruses =
+                    JsonConvert.DeserializeObject<ConcurrentStack<DetectedVirus>>(File.ReadAllText(_foundVirusesFileName));
+            }
+        }
+
+        /// <summary>
+        /// The event when a new virus definition is found by the scanner
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void VirusTotalQueue_NewDefinition(object sender, NewDefinitionEventHandlerArgs e)
         {
+            var virusDefinition = e.VirusDefinition;
+            var scanResults = virusDefinition.ScanResults;
             OnNewFileScan(new NewFileScanEventHandlerArgs
             {
-                VirusDefinition = e.VirusDefinition
+                FileScan = new FileScan
+                {
+                    Path = virusDefinition.FileName,
+                    PositiveScans = scanResults.Count(sr => sr.IsVirus),
+                    TotalScans = scanResults.Count
+                }
             });
-            _localStorage.Definitions.Add(e.VirusDefinition);
+            _localStorage.Definitions.Add(virusDefinition);
         }
 
-        public IEnumerable<VirusDefinition> VirusDatabase
-        {
-            get { return _localStorage.Definitions; }
-        }
-
+        /// <summary>
+        /// The event when a new virus is found
+        /// </summary>
         public event VirusFoundEventHandler VirusFound;
 
         public void Start(string virusTotalApiKey)
@@ -115,11 +144,17 @@ namespace VirusTotalScanner.Scanning
         private void AlertOnPositive(string sha256Hash, string pathToFile)
         {
             var definition = _localStorage.Definitions.Single(sr => sr.Hash == sha256Hash);
+            var scanResults = definition.ScanResults;
             OnNewFileScan(new NewFileScanEventHandlerArgs
             {
-                VirusDefinition = definition
+                FileScan = new FileScan
+                {
+                    Path = pathToFile,
+                    PositiveScans = scanResults.Count(sr => sr.IsVirus),
+                    TotalScans = scanResults.Count
+                }
             });
-            if (definition.ScanResults.Any(sr => sr.IsVirus))
+            if (scanResults.Any(sr => sr.IsVirus))
             {
                 OnVirusFound(new DetectedVirus
                 {
@@ -134,6 +169,14 @@ namespace VirusTotalScanner.Scanning
             _shouldStopRunning = true;
             VirusTotalQueue.Stop();
             _localStorage.Save();
+
+            SaveFoundVirusesDatabase();
+        }
+
+        private void SaveFoundVirusesDatabase()
+        {
+            var jsonContent = JsonConvert.SerializeObject(FoundViruses, Formatting.Indented);
+            File.WriteAllText(_foundVirusesFileName, jsonContent);
         }
 
         protected virtual void OnVirusFound(DetectedVirus virus)
