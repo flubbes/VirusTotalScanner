@@ -6,7 +6,7 @@ namespace VirusTotalScanner.Scanning.Local
 {
     public class CachedDefinitions
     {
-        private const string VirusDbFileName = "virus.db";
+        private const string VirusDbFileName = "virusDb.json";
 
         public CachedDefinitions()
         {
@@ -17,7 +17,10 @@ namespace VirusTotalScanner.Scanning.Local
 
         public void Load()
         {
-            Definitions = JsonConvert.DeserializeObject<List<VirusDefinition>>(File.ReadAllText(VirusDbFileName));
+            if (File.Exists(VirusDbFileName))
+            {
+                Definitions = JsonConvert.DeserializeObject<List<VirusDefinition>>(File.ReadAllText(VirusDbFileName));
+            }
         }
 
         public void Save()

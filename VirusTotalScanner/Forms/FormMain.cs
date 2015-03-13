@@ -37,7 +37,7 @@ namespace VirusTotalScanner.Forms
                     new FileAlertBehavior(_scanner) 
                 }, new NoMatchingBehaviorBehavior());
             _scanner.VirusFound += Scanner_VirusFound;
-            _scanner.NewFileScan += VirusTotalQueue_NewDefinition;
+            _scanner.NewFileScan += VirusScanner_NewScanFile;
             foreach (var unit in _monitoringUnitController.Units)
             {
                 unit.NewAlert += Unit_NewAlert;
@@ -91,16 +91,21 @@ namespace VirusTotalScanner.Forms
             {}
         }
 
-        void VirusTotalQueue_NewDefinition(object sender, NewFileScanEventHandlerArgs e)
+        /// <summary>
+        /// The event that gets triggered when a new file scan occures
+        /// </summary>
+        /// <param name="sender">The class that triggered the event</param>
+        /// <param name="e">The data that got scanned</param>
+        void VirusScanner_NewScanFile(object sender, NewFileScanEventHandlerArgs e)
         {
             HandleInvoke(() =>
             {
                 scanCount++;
-                var item = new ListViewItem(e.VirusDefinition.FileName);
+                var item = new ListViewItem(Path.GetFileName(e.FileScan.Path));
                 item.SubItems.Add(DateTime.Now.ToLongTimeString());
-                var totalScans = e.VirusDefinition.ScanResults.Count;
-                item.SubItems.Add(e.VirusDefinition.ScanResults.Count(s => s.IsVirus) + "/" + (totalScans == 0 ? 57 : totalScans));
-                var virusPrognosis = CalculateVirusRisk(e.VirusDefinition);
+                var totalScans = e.FileScan.TotalScans;
+                item.SubItems.Add(e.FileScan.PositiveScans + "/" + (totalScans == 0 ? 57 : totalScans));
+                var virusPrognosis = CalculateVirusRisk(e.FileScan);
                 item.SubItems.Add(virusPrognosis);
                 lvwScanLog.Items.Add(item);
                 if (lvwScanLog.Items.Count > 20)
@@ -111,24 +116,18 @@ namespace VirusTotalScanner.Forms
             });
         }
 
-        private static string CalculateVirusRisk(VirusDefinition definition)
+        private static string CalculateVirusRisk(FileScan definition)
         {
-            if (definition.ScanResults.Count == 0)
+            if (definition.TotalScans == 0)
             {
                 return "No Risk";
             }
-            var g = definition.ScanResults.Count;
-            var w = definition.ScanResults.Count(sr => sr.IsVirus);
-            var p = w*100/g;
-            if (p >= 50)
+            var percentageOfDetectedInfections = definition.PositiveScans*100/definition.TotalScans;
+            if (percentageOfDetectedInfections >= 50)
             {
                 return "Infected";
             }
-            if (p >= 1)
-            {
-                return "Risk";
-            }
-            return "No Risk";
+            return percentageOfDetectedInfections >= 1 ? "Risk" : "No Risk";
         }
 
         void Unit_NewAlert(object sender, NewAlertEventArgs e)
