@@ -51,8 +51,6 @@
             this.lblAlerts = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.grpbxStats = new System.Windows.Forms.GroupBox();
-            this.lblScannerState = new System.Windows.Forms.Label();
-            this.lblScannerStateDesc = new System.Windows.Forms.Label();
             this.lblFilesInQueue = new System.Windows.Forms.Label();
             this.tbxFilesInQueue = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,11 +59,10 @@
             this.tbxTotalScans = new System.Windows.Forms.TextBox();
             this.lblTotalAlerts = new System.Windows.Forms.Label();
             this.tbxTotalAlerts = new System.Windows.Forms.TextBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.tbxScannerStateMenuBar = new System.Windows.Forms.ToolStripTextBox();
+            this.menuStripScannerIndicator = new System.Windows.Forms.MenuStrip();
+            this.lblScannerStateMenuBar = new System.Windows.Forms.Label();
             this.mainMenuStrip.SuspendLayout();
             this.grpbxStats.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -75,9 +72,9 @@
             this.virusHistoryToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.aboutToolStripMenuItem});
-            this.mainMenuStrip.Location = new System.Drawing.Point(0, 29);
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 24);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(884, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(734, 24);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.Text = "menuStrip1";
             this.mainMenuStrip.Resize += new System.EventHandler(this.menuStrip1_Resize);
@@ -109,14 +106,14 @@
             // openHistoryToolStripMenuItem
             // 
             this.openHistoryToolStripMenuItem.Name = "openHistoryToolStripMenuItem";
-            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openHistoryToolStripMenuItem.Text = "Open History";
             this.openHistoryToolStripMenuItem.Click += new System.EventHandler(this.openHistoryToolStripMenuItem_Click);
             // 
             // clearHistoryToolStripMenuItem
             // 
             this.clearHistoryToolStripMenuItem.Name = "clearHistoryToolStripMenuItem";
-            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.clearHistoryToolStripMenuItem.Text = "Clear History";
             this.clearHistoryToolStripMenuItem.Click += new System.EventHandler(this.clearHistoryToolStripMenuItem_Click);
             // 
@@ -144,9 +141,9 @@
             this.lvwAlertLog.FullRowSelect = true;
             this.lvwAlertLog.GridLines = true;
             this.lvwAlertLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvwAlertLog.Location = new System.Drawing.Point(12, 80);
+            this.lvwAlertLog.Location = new System.Drawing.Point(14, 165);
             this.lvwAlertLog.Name = "lvwAlertLog";
-            this.lvwAlertLog.Size = new System.Drawing.Size(325, 369);
+            this.lvwAlertLog.Size = new System.Drawing.Size(325, 284);
             this.lvwAlertLog.TabIndex = 1;
             this.lvwAlertLog.UseCompatibleStateImageBehavior = false;
             this.lvwAlertLog.View = System.Windows.Forms.View.Details;
@@ -177,9 +174,9 @@
             this.lvwScanLog.FullRowSelect = true;
             this.lvwScanLog.GridLines = true;
             this.lvwScanLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvwScanLog.Location = new System.Drawing.Point(343, 80);
+            this.lvwScanLog.Location = new System.Drawing.Point(343, 73);
             this.lvwScanLog.Name = "lvwScanLog";
-            this.lvwScanLog.Size = new System.Drawing.Size(356, 369);
+            this.lvwScanLog.Size = new System.Drawing.Size(379, 376);
             this.lvwScanLog.TabIndex = 2;
             this.lvwScanLog.UseCompatibleStateImageBehavior = false;
             this.lvwScanLog.View = System.Windows.Forms.View.Details;
@@ -215,7 +212,7 @@
             // lblAlerts
             // 
             this.lblAlerts.AutoSize = true;
-            this.lblAlerts.Location = new System.Drawing.Point(9, 64);
+            this.lblAlerts.Location = new System.Drawing.Point(11, 149);
             this.lblAlerts.Name = "lblAlerts";
             this.lblAlerts.Size = new System.Drawing.Size(33, 13);
             this.lblAlerts.TabIndex = 3;
@@ -224,7 +221,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 64);
+            this.label2.Location = new System.Drawing.Point(340, 57);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(37, 13);
             this.label2.TabIndex = 4;
@@ -232,8 +229,6 @@
             // 
             // grpbxStats
             // 
-            this.grpbxStats.Controls.Add(this.lblScannerState);
-            this.grpbxStats.Controls.Add(this.lblScannerStateDesc);
             this.grpbxStats.Controls.Add(this.lblFilesInQueue);
             this.grpbxStats.Controls.Add(this.tbxFilesInQueue);
             this.grpbxStats.Controls.Add(this.label3);
@@ -242,35 +237,17 @@
             this.grpbxStats.Controls.Add(this.tbxTotalScans);
             this.grpbxStats.Controls.Add(this.lblTotalAlerts);
             this.grpbxStats.Controls.Add(this.tbxTotalAlerts);
-            this.grpbxStats.Location = new System.Drawing.Point(705, 74);
+            this.grpbxStats.Location = new System.Drawing.Point(11, 67);
             this.grpbxStats.Name = "grpbxStats";
-            this.grpbxStats.Size = new System.Drawing.Size(168, 375);
+            this.grpbxStats.Size = new System.Drawing.Size(323, 79);
             this.grpbxStats.TabIndex = 5;
             this.grpbxStats.TabStop = false;
             this.grpbxStats.Text = "Stats";
             // 
-            // lblScannerState
-            // 
-            this.lblScannerState.AutoSize = true;
-            this.lblScannerState.Location = new System.Drawing.Point(82, 110);
-            this.lblScannerState.Name = "lblScannerState";
-            this.lblScannerState.Size = new System.Drawing.Size(45, 13);
-            this.lblScannerState.TabIndex = 10;
-            this.lblScannerState.Text = "Inactive";
-            // 
-            // lblScannerStateDesc
-            // 
-            this.lblScannerStateDesc.AutoSize = true;
-            this.lblScannerStateDesc.Location = new System.Drawing.Point(3, 110);
-            this.lblScannerStateDesc.Name = "lblScannerStateDesc";
-            this.lblScannerStateDesc.Size = new System.Drawing.Size(76, 13);
-            this.lblScannerStateDesc.TabIndex = 9;
-            this.lblScannerStateDesc.Text = "Scanner state:";
-            // 
             // lblFilesInQueue
             // 
             this.lblFilesInQueue.AutoSize = true;
-            this.lblFilesInQueue.Location = new System.Drawing.Point(3, 87);
+            this.lblFilesInQueue.Location = new System.Drawing.Point(130, 47);
             this.lblFilesInQueue.Name = "lblFilesInQueue";
             this.lblFilesInQueue.Size = new System.Drawing.Size(75, 13);
             this.lblFilesInQueue.TabIndex = 7;
@@ -279,17 +256,17 @@
             // tbxFilesInQueue
             // 
             this.tbxFilesInQueue.Enabled = false;
-            this.tbxFilesInQueue.Location = new System.Drawing.Point(85, 84);
+            this.tbxFilesInQueue.Location = new System.Drawing.Point(213, 44);
             this.tbxFilesInQueue.Name = "tbxFilesInQueue";
             this.tbxFilesInQueue.ReadOnly = true;
-            this.tbxFilesInQueue.Size = new System.Drawing.Size(77, 20);
+            this.tbxFilesInQueue.Size = new System.Drawing.Size(48, 20);
             this.tbxFilesInQueue.TabIndex = 6;
             this.tbxFilesInQueue.Text = "0";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(2, 65);
+            this.label3.Location = new System.Drawing.Point(130, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 13);
             this.label3.TabIndex = 5;
@@ -298,17 +275,17 @@
             // tbxVirusesFound
             // 
             this.tbxVirusesFound.Enabled = false;
-            this.tbxVirusesFound.Location = new System.Drawing.Point(85, 62);
+            this.tbxVirusesFound.Location = new System.Drawing.Point(213, 22);
             this.tbxVirusesFound.Name = "tbxVirusesFound";
             this.tbxVirusesFound.ReadOnly = true;
-            this.tbxVirusesFound.Size = new System.Drawing.Size(77, 20);
+            this.tbxVirusesFound.Size = new System.Drawing.Size(48, 20);
             this.tbxVirusesFound.TabIndex = 4;
             this.tbxVirusesFound.Text = "0";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(2, 43);
+            this.label1.Location = new System.Drawing.Point(5, 47);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 13);
             this.label1.TabIndex = 3;
@@ -317,17 +294,17 @@
             // tbxTotalScans
             // 
             this.tbxTotalScans.Enabled = false;
-            this.tbxTotalScans.Location = new System.Drawing.Point(85, 40);
+            this.tbxTotalScans.Location = new System.Drawing.Point(76, 44);
             this.tbxTotalScans.Name = "tbxTotalScans";
             this.tbxTotalScans.ReadOnly = true;
-            this.tbxTotalScans.Size = new System.Drawing.Size(77, 20);
+            this.tbxTotalScans.Size = new System.Drawing.Size(48, 20);
             this.tbxTotalScans.TabIndex = 2;
             this.tbxTotalScans.Text = "0";
             // 
             // lblTotalAlerts
             // 
             this.lblTotalAlerts.AutoSize = true;
-            this.lblTotalAlerts.Location = new System.Drawing.Point(3, 21);
+            this.lblTotalAlerts.Location = new System.Drawing.Point(6, 25);
             this.lblTotalAlerts.Name = "lblTotalAlerts";
             this.lblTotalAlerts.Size = new System.Drawing.Size(63, 13);
             this.lblTotalAlerts.TabIndex = 1;
@@ -336,45 +313,46 @@
             // tbxTotalAlerts
             // 
             this.tbxTotalAlerts.Enabled = false;
-            this.tbxTotalAlerts.Location = new System.Drawing.Point(85, 18);
+            this.tbxTotalAlerts.Location = new System.Drawing.Point(76, 22);
             this.tbxTotalAlerts.Name = "tbxTotalAlerts";
             this.tbxTotalAlerts.ReadOnly = true;
-            this.tbxTotalAlerts.Size = new System.Drawing.Size(77, 20);
+            this.tbxTotalAlerts.Size = new System.Drawing.Size(48, 20);
             this.tbxTotalAlerts.TabIndex = 0;
             this.tbxTotalAlerts.Text = "0";
             // 
-            // menuStrip1
+            // menuStripScannerIndicator
             // 
-            this.menuStrip1.BackColor = System.Drawing.Color.Green;
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbxScannerStateMenuBar});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(884, 29);
-            this.menuStrip1.TabIndex = 6;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStripScannerIndicator.BackColor = System.Drawing.Color.Green;
+            this.menuStripScannerIndicator.Location = new System.Drawing.Point(0, 0);
+            this.menuStripScannerIndicator.Name = "menuStripScannerIndicator";
+            this.menuStripScannerIndicator.Size = new System.Drawing.Size(734, 24);
+            this.menuStripScannerIndicator.TabIndex = 6;
+            this.menuStripScannerIndicator.Text = "menuStrip1";
             // 
-            // tbxScannerStateMenuBar
+            // lblScannerStateMenuBar
             // 
-            this.tbxScannerStateMenuBar.BackColor = System.Drawing.Color.Green;
-            this.tbxScannerStateMenuBar.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbxScannerStateMenuBar.Name = "tbxScannerStateMenuBar";
-            this.tbxScannerStateMenuBar.ReadOnly = true;
-            this.tbxScannerStateMenuBar.Size = new System.Drawing.Size(200, 25);
-            this.tbxScannerStateMenuBar.Text = " Scanner State: ";
+            this.lblScannerStateMenuBar.AutoSize = true;
+            this.lblScannerStateMenuBar.BackColor = System.Drawing.Color.Green;
+            this.lblScannerStateMenuBar.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblScannerStateMenuBar.Location = new System.Drawing.Point(11, 3);
+            this.lblScannerStateMenuBar.Name = "lblScannerStateMenuBar";
+            this.lblScannerStateMenuBar.Size = new System.Drawing.Size(94, 17);
+            this.lblScannerStateMenuBar.TabIndex = 7;
+            this.lblScannerStateMenuBar.Text = "Scanner State:";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 461);
+            this.ClientSize = new System.Drawing.Size(734, 461);
+            this.Controls.Add(this.lblScannerStateMenuBar);
             this.Controls.Add(this.grpbxStats);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblAlerts);
             this.Controls.Add(this.lvwScanLog);
             this.Controls.Add(this.lvwAlertLog);
             this.Controls.Add(this.mainMenuStrip);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStripScannerIndicator);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -388,8 +366,6 @@
             this.mainMenuStrip.PerformLayout();
             this.grpbxStats.ResumeLayout(false);
             this.grpbxStats.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -423,13 +399,11 @@
         private System.Windows.Forms.TextBox tbxVirusesFound;
         private System.Windows.Forms.Label lblFilesInQueue;
         private System.Windows.Forms.TextBox tbxFilesInQueue;
-        private System.Windows.Forms.Label lblScannerStateDesc;
-        private System.Windows.Forms.Label lblScannerState;
         private System.Windows.Forms.ToolStripMenuItem virusHistoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openHistoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearHistoryToolStripMenuItem;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripTextBox tbxScannerStateMenuBar;
+        private System.Windows.Forms.MenuStrip menuStripScannerIndicator;
+        private System.Windows.Forms.Label lblScannerStateMenuBar;
     }
 }
 

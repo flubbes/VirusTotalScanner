@@ -55,16 +55,19 @@ namespace VirusTotalScanner.Forms
                 switch (e.State)
                 {
                     case ScannerState.Scanning:
-                        lblScannerState.ForeColor = Color.LimeGreen;
-                        lblScannerState.Text = "Scanning";
+                        lblScannerStateMenuBar.BackColor = Color.Green;
+                        menuStripScannerIndicator.BackColor = Color.Green;
+                        lblScannerStateMenuBar.Text = "Scanning";
                         break;
                     case ScannerState.Idling:
-                        lblScannerState.ForeColor = Color.Orange;
-                        lblScannerState.Text = "Idling";
+                        lblScannerStateMenuBar.BackColor = Color.Orange;
+                        menuStripScannerIndicator.BackColor = Color.Orange;
+                        lblScannerStateMenuBar.Text = "Idle";
                         break;
                     case ScannerState.Waiting:
-                        lblScannerState.ForeColor = Color.Red;
-                        lblScannerState.Text = "Waiting";
+                        lblScannerStateMenuBar.BackColor = Color.OrangeRed;
+                        menuStripScannerIndicator.BackColor = Color.OrangeRed;
+                        lblScannerStateMenuBar.Text = "Waiting";
                         break;
                 }
             });
