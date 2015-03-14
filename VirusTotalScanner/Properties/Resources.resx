@@ -139,4 +139,7 @@
   <data name="FormMain_settingsToolStripMenuItem_Click_Settings_Changed_Restart_Message" xml:space="preserve">
     <value>You need to restart the program before the changed settings take effect.</value>
   </data>
+  <data name="NoMatchingBehaviorBehavior_HandleAlert_Unhandled_Alert_Message" xml:space="preserve">
+    <value>An unhandled alert was found: </value>
+  </data>
 </root>

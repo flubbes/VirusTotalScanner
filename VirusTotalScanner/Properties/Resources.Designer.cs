@@ -115,6 +115,15 @@ namespace VirusTotalScanner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An unhandled alert was found: .
+        /// </summary>
+        internal static string NoMatchingBehaviorBehavior_HandleAlert_Unhandled_Alert_Message {
+            get {
+                return ResourceManager.GetString("NoMatchingBehaviorBehavior_HandleAlert_Unhandled_Alert_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap VirusTotal_Icon {

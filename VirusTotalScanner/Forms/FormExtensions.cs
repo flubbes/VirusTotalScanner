@@ -23,7 +23,9 @@ namespace VirusTotalScanner.Forms
                 }
             }
             catch
-            { }
+            {
+                // ignored
+            }
         }
     }
 }
