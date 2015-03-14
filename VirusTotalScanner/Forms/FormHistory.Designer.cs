@@ -122,7 +122,7 @@
             this.openInExplorerToolStripMenuItem,
             this.removeFromHistoryToolStripMenuItem});
             this.cmsVirusHistory.Name = "cmsVirusHistory";
-            this.cmsVirusHistory.Size = new System.Drawing.Size(188, 48);
+            this.cmsVirusHistory.Size = new System.Drawing.Size(188, 70);
             // 
             // openInExplorerToolStripMenuItem
             // 
@@ -135,6 +135,7 @@
             this.removeFromHistoryToolStripMenuItem.Name = "removeFromHistoryToolStripMenuItem";
             this.removeFromHistoryToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
             this.removeFromHistoryToolStripMenuItem.Text = "Remove from History";
+            this.removeFromHistoryToolStripMenuItem.Click += new System.EventHandler(this.removeFromHistoryToolStripMenuItem_Click);
             // 
             // FormHistory
             // 
