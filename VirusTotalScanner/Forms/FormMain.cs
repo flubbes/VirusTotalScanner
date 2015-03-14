@@ -190,7 +190,7 @@ namespace VirusTotalScanner.Forms
 
         private void clearHistoryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // clear the historyfile (?)
+            _scanner.ClearFoundVirusHistory();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
