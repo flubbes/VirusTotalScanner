@@ -24,6 +24,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
         private readonly Action<DetectedVirus> _virusFoundTrigger;
         public event NewDefinitionEventHandler NewDefinition;
         private List<string> _recentScanHashes;
+        private Thread _virusTotalThread;
         public event StateChangedEventHandler StateChanged;
 
         public VirusTotalQueue(Action<DetectedVirus> virusFoundTrigger)
@@ -51,12 +52,14 @@ namespace VirusTotalScanner.Scanning.VirusTotal
         {
             _virusTotal = new VirusTotalNET.VirusTotal(virusTotalApiKey);
             _shouldStopWorking = false;
-            new Thread(ThreadMethod).Start();
+            _virusTotalThread = new Thread(ThreadMethod);
+            _virusTotalThread.Start();
         }
 
         public void Stop()
         {
             _shouldStopWorking = true;
+            _virusTotalThread.Interrupt();
         }
 
         private void ThreadMethod()
@@ -69,7 +72,6 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                 {
                     try
                     {
-
                         WorkOnNextItem(fileInfo);
                     }
                     catch (RateLimitException)

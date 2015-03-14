@@ -38,9 +38,9 @@
             // 
             this.btnSave.Location = new System.Drawing.Point(493, 10);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(67, 23);
+            this.btnSave.Size = new System.Drawing.Size(97, 23);
             this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Save";
+            this.btnSave.Text = "Save and close";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -65,13 +65,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 41);
+            this.ClientSize = new System.Drawing.Size(594, 41);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbxApiKey);
             this.Controls.Add(this.btnSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(580, 80);
+            this.MaximumSize = new System.Drawing.Size(610, 80);
             this.MinimizeBox = false;
             this.Name = "FormSettings";
             this.Text = "Settings";
