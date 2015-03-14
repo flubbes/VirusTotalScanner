@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormHistory));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +39,11 @@
             this.colHits = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colResult = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cmsVirusHistory = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeFromHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            this.cmsVirusHistory.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -75,6 +80,7 @@
             this.colHits,
             this.colResult,
             this.colPath});
+            this.lvwVirusHistory.ContextMenuStrip = this.cmsVirusHistory;
             this.lvwVirusHistory.FullRowSelect = true;
             this.lvwVirusHistory.GridLines = true;
             this.lvwVirusHistory.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
@@ -110,6 +116,26 @@
             this.colPath.Text = "Path";
             this.colPath.Width = 237;
             // 
+            // cmsVirusHistory
+            // 
+            this.cmsVirusHistory.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openInExplorerToolStripMenuItem,
+            this.removeFromHistoryToolStripMenuItem});
+            this.cmsVirusHistory.Name = "cmsVirusHistory";
+            this.cmsVirusHistory.Size = new System.Drawing.Size(188, 48);
+            // 
+            // openInExplorerToolStripMenuItem
+            // 
+            this.openInExplorerToolStripMenuItem.Name = "openInExplorerToolStripMenuItem";
+            this.openInExplorerToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.openInExplorerToolStripMenuItem.Text = "Open in Explorer";
+            // 
+            // removeFromHistoryToolStripMenuItem
+            // 
+            this.removeFromHistoryToolStripMenuItem.Name = "removeFromHistoryToolStripMenuItem";
+            this.removeFromHistoryToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
+            this.removeFromHistoryToolStripMenuItem.Text = "Remove from History";
+            // 
             // FormHistory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,6 +153,7 @@
             this.Text = "Virus History";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.cmsVirusHistory.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -143,5 +170,8 @@
         private System.Windows.Forms.ColumnHeader colHits;
         private System.Windows.Forms.ColumnHeader colResult;
         private System.Windows.Forms.ColumnHeader colPath;
+        private System.Windows.Forms.ContextMenuStrip cmsVirusHistory;
+        private System.Windows.Forms.ToolStripMenuItem openInExplorerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeFromHistoryToolStripMenuItem;
     }
 }
