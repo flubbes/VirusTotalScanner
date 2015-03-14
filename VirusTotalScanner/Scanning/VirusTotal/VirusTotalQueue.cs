@@ -84,9 +84,11 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                     }
                     catch (WebException)
                     {
+                        OnStateChanged(ScannerState.ConnectionProblem);
+                        Debug.WriteLine(_waitTime);
                         _queuedFiles.Add(fileInfo);
                         _waitTime += 1000;
-                        
+                        Thread.Sleep(_waitTime);
                     }
                     catch
                     {
