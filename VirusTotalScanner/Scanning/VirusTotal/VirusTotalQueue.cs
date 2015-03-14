@@ -15,7 +15,7 @@ using ScanResult = VirusTotalScanner.Scanning.Local.ScanResult;
 
 namespace VirusTotalScanner.Scanning.VirusTotal
 {
-    public class VirusTotalQueue
+    public sealed class VirusTotalQueue
     {
         private readonly ConcurrentBag<FileInfo> _queuedFiles;
         private bool _shouldStopWorking;
@@ -158,7 +158,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
             get { return _queuedFiles.Count; }
         }
 
-        protected virtual void OnNewDefinition(VirusDefinition virusDefinition)
+        private void OnNewDefinition(VirusDefinition virusDefinition)
         {
             Debug.WriteLine("New Virus definition in database for: " + virusDefinition.FileName);
             if (NewDefinition != null)
@@ -170,7 +170,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
             }
         }
 
-        protected virtual void OnStateChanged(ScannerState scannerState)
+        private void OnStateChanged(ScannerState scannerState)
         {
             if (StateChanged != null)
             {
