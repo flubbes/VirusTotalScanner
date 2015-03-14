@@ -16,6 +16,7 @@ namespace VirusTotalScanner.Forms
         private void btnSave_Click(object sender, EventArgs e)
         {
             VirusScannerSettings.SaveApiKeyToFile(tbxApiKey.Text);
+            Close();
         }
 
     }
