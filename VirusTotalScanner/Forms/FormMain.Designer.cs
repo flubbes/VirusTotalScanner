@@ -37,6 +37,7 @@
             this.openHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lvwAlertLog = new System.Windows.Forms.ListView();
             this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -48,6 +49,9 @@
             this.colScanHits = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colScanResult = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.notifierIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStripNotifier = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.lblAlerts = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.grpbxStats = new System.Windows.Forms.GroupBox();
@@ -61,12 +65,9 @@
             this.tbxTotalAlerts = new System.Windows.Forms.TextBox();
             this.menuStripScannerIndicator = new System.Windows.Forms.MenuStrip();
             this.lblScannerStateMenuBar = new System.Windows.Forms.Label();
-            this.contextMenuStripNotifier = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.quitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
-            this.grpbxStats.SuspendLayout();
             this.contextMenuStripNotifier.SuspendLayout();
+            this.grpbxStats.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -75,7 +76,7 @@
             this.fileToolStripMenuItem,
             this.virusHistoryToolStripMenuItem,
             this.settingsToolStripMenuItem,
-            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 24);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Size = new System.Drawing.Size(734, 24);
@@ -110,14 +111,14 @@
             // openHistoryToolStripMenuItem
             // 
             this.openHistoryToolStripMenuItem.Name = "openHistoryToolStripMenuItem";
-            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.openHistoryToolStripMenuItem.Text = "Open History";
             this.openHistoryToolStripMenuItem.Click += new System.EventHandler(this.openHistoryToolStripMenuItem_Click);
             // 
             // clearHistoryToolStripMenuItem
             // 
             this.clearHistoryToolStripMenuItem.Name = "clearHistoryToolStripMenuItem";
-            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearHistoryToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.clearHistoryToolStripMenuItem.Text = "Clear History";
             this.clearHistoryToolStripMenuItem.Click += new System.EventHandler(this.clearHistoryToolStripMenuItem_Click);
             // 
@@ -128,12 +129,20 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(24, 20);
+            this.helpToolStripMenuItem.Text = "?";
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click_1);
             // 
             // lvwAlertLog
             // 
@@ -154,18 +163,18 @@
             // 
             // colType
             // 
-            this.colType.Text = "Type";
+            this.colType.Text = "Type of Alert";
             this.colType.Width = 90;
             // 
             // colFile
             // 
-            this.colFile.Text = "File";
-            this.colFile.Width = 150;
+            this.colFile.Text = "Filename";
+            this.colFile.Width = 135;
             // 
             // colTime
             // 
             this.colTime.Text = "Time";
-            this.colTime.Width = 74;
+            this.colTime.Width = 100;
             // 
             // lvwScanLog
             // 
@@ -178,32 +187,32 @@
             this.lvwScanLog.FullRowSelect = true;
             this.lvwScanLog.GridLines = true;
             this.lvwScanLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lvwScanLog.Location = new System.Drawing.Point(343, 73);
+            this.lvwScanLog.Location = new System.Drawing.Point(343, 67);
             this.lvwScanLog.Name = "lvwScanLog";
-            this.lvwScanLog.Size = new System.Drawing.Size(379, 376);
+            this.lvwScanLog.Size = new System.Drawing.Size(379, 382);
             this.lvwScanLog.TabIndex = 2;
             this.lvwScanLog.UseCompatibleStateImageBehavior = false;
             this.lvwScanLog.View = System.Windows.Forms.View.Details;
             // 
             // colScanFile
             // 
-            this.colScanFile.Text = "File";
-            this.colScanFile.Width = 150;
+            this.colScanFile.Text = "Filename";
+            this.colScanFile.Width = 138;
             // 
             // colScanTime
             // 
-            this.colScanTime.Text = "Time";
-            this.colScanTime.Width = 77;
+            this.colScanTime.Text = "Time of Scan";
+            this.colScanTime.Width = 95;
             // 
             // colScanHits
             // 
             this.colScanHits.Text = "Hits";
-            this.colScanHits.Width = 50;
+            this.colScanHits.Width = 46;
             // 
             // colScanResult
             // 
             this.colScanResult.Text = "Result";
-            this.colScanResult.Width = 100;
+            this.colScanResult.Width = 96;
             // 
             // notifierIcon
             // 
@@ -214,23 +223,45 @@
             this.notifierIcon.BalloonTipClicked += new System.EventHandler(this.notifierIcon_BalloonTipClicked);
             this.notifierIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifierIcon_MouseDoubleClick);
             // 
+            // contextMenuStripNotifier
+            // 
+            this.contextMenuStripNotifier.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem,
+            this.quitToolStripMenuItem1});
+            this.contextMenuStripNotifier.Name = "contextMenuStripNotifier";
+            this.contextMenuStripNotifier.Size = new System.Drawing.Size(104, 48);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // quitToolStripMenuItem1
+            // 
+            this.quitToolStripMenuItem1.Name = "quitToolStripMenuItem1";
+            this.quitToolStripMenuItem1.Size = new System.Drawing.Size(103, 22);
+            this.quitToolStripMenuItem1.Text = "Quit";
+            this.quitToolStripMenuItem1.Click += new System.EventHandler(this.quitToolStripMenuItem1_Click);
+            // 
             // lblAlerts
             // 
             this.lblAlerts.AutoSize = true;
             this.lblAlerts.Location = new System.Drawing.Point(11, 136);
             this.lblAlerts.Name = "lblAlerts";
-            this.lblAlerts.Size = new System.Drawing.Size(33, 13);
+            this.lblAlerts.Size = new System.Drawing.Size(108, 13);
             this.lblAlerts.TabIndex = 3;
-            this.lblAlerts.Text = "Alerts";
+            this.lblAlerts.Text = "Recent System-Alerts";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(340, 58);
+            this.label2.Location = new System.Drawing.Point(340, 52);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.Size = new System.Drawing.Size(75, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Scans";
+            this.label2.Text = "Recent Scans";
             // 
             // grpbxStats
             // 
@@ -242,7 +273,7 @@
             this.grpbxStats.Controls.Add(this.tbxTotalScans);
             this.grpbxStats.Controls.Add(this.lblTotalAlerts);
             this.grpbxStats.Controls.Add(this.tbxTotalAlerts);
-            this.grpbxStats.Location = new System.Drawing.Point(14, 67);
+            this.grpbxStats.Location = new System.Drawing.Point(14, 61);
             this.grpbxStats.Name = "grpbxStats";
             this.grpbxStats.Size = new System.Drawing.Size(325, 65);
             this.grpbxStats.TabIndex = 5;
@@ -252,38 +283,38 @@
             // lblFilesInQueue
             // 
             this.lblFilesInQueue.AutoSize = true;
-            this.lblFilesInQueue.Location = new System.Drawing.Point(148, 40);
+            this.lblFilesInQueue.Location = new System.Drawing.Point(144, 40);
             this.lblFilesInQueue.Name = "lblFilesInQueue";
-            this.lblFilesInQueue.Size = new System.Drawing.Size(75, 13);
+            this.lblFilesInQueue.Size = new System.Drawing.Size(110, 13);
             this.lblFilesInQueue.TabIndex = 7;
-            this.lblFilesInQueue.Text = "Files in queue:";
+            this.lblFilesInQueue.Text = "Files waiting for Scan:";
             // 
             // tbxFilesInQueue
             // 
             this.tbxFilesInQueue.Enabled = false;
-            this.tbxFilesInQueue.Location = new System.Drawing.Point(231, 37);
+            this.tbxFilesInQueue.Location = new System.Drawing.Point(263, 37);
             this.tbxFilesInQueue.Name = "tbxFilesInQueue";
             this.tbxFilesInQueue.ReadOnly = true;
-            this.tbxFilesInQueue.Size = new System.Drawing.Size(59, 20);
+            this.tbxFilesInQueue.Size = new System.Drawing.Size(54, 20);
             this.tbxFilesInQueue.TabIndex = 6;
             this.tbxFilesInQueue.Text = "0";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(148, 18);
+            this.label3.Location = new System.Drawing.Point(144, 18);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 13);
+            this.label3.Size = new System.Drawing.Size(118, 13);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Viruses Found:";
+            this.label3.Text = "Potential Viruses found:";
             // 
             // tbxVirusesFound
             // 
             this.tbxVirusesFound.Enabled = false;
-            this.tbxVirusesFound.Location = new System.Drawing.Point(231, 15);
+            this.tbxVirusesFound.Location = new System.Drawing.Point(263, 15);
             this.tbxVirusesFound.Name = "tbxVirusesFound";
             this.tbxVirusesFound.ReadOnly = true;
-            this.tbxVirusesFound.Size = new System.Drawing.Size(59, 20);
+            this.tbxVirusesFound.Size = new System.Drawing.Size(54, 20);
             this.tbxVirusesFound.TabIndex = 4;
             this.tbxVirusesFound.Text = "0";
             // 
@@ -345,28 +376,6 @@
             this.lblScannerStateMenuBar.TabIndex = 7;
             this.lblScannerStateMenuBar.Text = "Scanner State:";
             // 
-            // contextMenuStripNotifier
-            // 
-            this.contextMenuStripNotifier.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem,
-            this.quitToolStripMenuItem1});
-            this.contextMenuStripNotifier.Name = "contextMenuStripNotifier";
-            this.contextMenuStripNotifier.Size = new System.Drawing.Size(153, 70);
-            // 
-            // quitToolStripMenuItem1
-            // 
-            this.quitToolStripMenuItem1.Name = "quitToolStripMenuItem1";
-            this.quitToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.quitToolStripMenuItem1.Text = "Quit";
-            this.quitToolStripMenuItem1.Click += new System.EventHandler(this.quitToolStripMenuItem1_Click);
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -391,9 +400,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
+            this.contextMenuStripNotifier.ResumeLayout(false);
             this.grpbxStats.ResumeLayout(false);
             this.grpbxStats.PerformLayout();
-            this.contextMenuStripNotifier.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -413,7 +422,7 @@
         private System.Windows.Forms.Label lblAlerts;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.GroupBox grpbxStats;
         private System.Windows.Forms.ColumnHeader colScanFile;
         private System.Windows.Forms.ColumnHeader colScanTime;
@@ -435,6 +444,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripNotifier;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
 
