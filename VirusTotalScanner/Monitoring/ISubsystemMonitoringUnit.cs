@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace VirusTotalScanner.Monitoring
+﻿namespace VirusTotalScanner.Monitoring
 {
     public interface ISubsystemMonitoringUnit
     {
