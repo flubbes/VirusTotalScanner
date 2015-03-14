@@ -203,5 +203,18 @@ namespace VirusTotalScanner.Scanning
                 NewFileScan(this, e);
             }
         }
+
+        /// <summary>
+        /// Deletes the found virus database in memory and deletes the file on the disk
+        /// </summary>
+        public void ClearFoundVirusHistory()
+        {
+            FoundViruses.Clear();
+            var foundVirusesDbFile = new FileInfo(_foundVirusesFileName);
+            if (foundVirusesDbFile.Exists)
+            {
+                foundVirusesDbFile.Delete();
+            }
+        }
     }
 }
