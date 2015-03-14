@@ -98,7 +98,13 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                 {
                     _waitTime = DefaultWaitTime;
                 }
-                Thread.Sleep(1);
+                try
+                {
+                    Thread.Sleep(1);
+                }
+                catch
+                {
+                }
             }
         }
 

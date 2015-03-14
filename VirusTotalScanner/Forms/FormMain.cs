@@ -154,7 +154,10 @@ namespace VirusTotalScanner.Forms
         {
             var settingsForm = new FormSettings();
             settingsForm.ShowDialog();
-            MessageBox.Show("You need to restart the program before the changed settings take effect.");
+            if (settingsForm.SettingsChanged)
+            {
+                MessageBox.Show("You need to restart the program before the changed settings take effect.");
+            }
         }
 
         private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
