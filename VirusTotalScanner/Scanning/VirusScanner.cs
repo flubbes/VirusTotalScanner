@@ -11,7 +11,7 @@ using VirusTotalScanner.Scanning.VirusTotal;
 
 namespace VirusTotalScanner.Scanning
 {
-    public class VirusScanner
+    public sealed class VirusScanner
     {
         private bool _shouldStopRunning;
         private readonly ConcurrentBag<string> _fileQueue;
@@ -19,7 +19,7 @@ namespace VirusTotalScanner.Scanning
         public  VirusTotalQueue VirusTotalQueue { get; private set; }
         public event NewFileScanEventHandler NewFileScan;
         public List<DetectedVirus> FoundViruses { get; private set; }
-        private readonly string _foundVirusesFileName = "foundViruses.json";
+        private const string FoundVirusesFileName = "foundViruses.json";
 
         /// <summary>
         /// Initializes a new instance of the virus scanner
@@ -39,10 +39,10 @@ namespace VirusTotalScanner.Scanning
         private void LoadFoundVirusesDatabase()
         {
             FoundViruses = new List<DetectedVirus>();
-            if (File.Exists(_foundVirusesFileName))
+            if (File.Exists(FoundVirusesFileName))
             {
                 FoundViruses =
-                    JsonConvert.DeserializeObject<List<DetectedVirus>>(File.ReadAllText(_foundVirusesFileName));
+                    JsonConvert.DeserializeObject<List<DetectedVirus>>(File.ReadAllText(FoundVirusesFileName));
             }
         }
 
@@ -181,10 +181,10 @@ namespace VirusTotalScanner.Scanning
         private void SaveFoundVirusesDatabase()
         {
             var jsonContent = JsonConvert.SerializeObject(FoundViruses, Formatting.Indented);
-            File.WriteAllText(_foundVirusesFileName, jsonContent);
+            File.WriteAllText(FoundVirusesFileName, jsonContent);
         }
 
-        protected virtual void OnVirusFound(DetectedVirus virus)
+        private void OnVirusFound(DetectedVirus virus)
         {
             FoundViruses.Add(virus);
             if (VirusFound != null)
@@ -196,7 +196,7 @@ namespace VirusTotalScanner.Scanning
             }
         }
 
-        protected virtual void OnNewFileScan(NewFileScanEventHandlerArgs e)
+        private void OnNewFileScan(NewFileScanEventHandlerArgs e)
         {
             if (NewFileScan != null)
             {
@@ -210,7 +210,7 @@ namespace VirusTotalScanner.Scanning
         public void ClearFoundVirusHistory()
         {
             FoundViruses.Clear();
-            var foundVirusesDbFile = new FileInfo(_foundVirusesFileName);
+            var foundVirusesDbFile = new FileInfo(FoundVirusesFileName);
             if (foundVirusesDbFile.Exists)
             {
                 foundVirusesDbFile.Delete();
