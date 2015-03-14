@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace VirusTotalScanner.Scanning
+﻿namespace VirusTotalScanner.Scanning
 {
     /// <summary>
     /// All data about a filescan

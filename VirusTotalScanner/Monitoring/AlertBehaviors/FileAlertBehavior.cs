@@ -1,5 +1,4 @@
-﻿using System;
-using VirusTotalScanner.Monitoring.Alerts;
+﻿using VirusTotalScanner.Monitoring.Alerts;
 using VirusTotalScanner.Scanning;
 
 namespace VirusTotalScanner.Monitoring.AlertBehaviors
