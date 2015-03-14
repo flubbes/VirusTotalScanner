@@ -11,16 +11,17 @@ using VirusTotalScanner.Scanning;
 using VirusTotalScanner.Scanning.VirusTotal;
 using VirusTotalScanner.Support;
 using VirusTotalScanner.Forms;
+using VirusTotalScanner.Properties;
 
 namespace VirusTotalScanner.Forms
 {
     public partial class FormMain : Form
     {
-        private VirusScanner _scanner;
-        private MonitoringUnitController _monitoringUnitController;
-        private long alertCount;
-        private long scanCount;
-        private long virusCount;
+        private readonly VirusScanner _scanner;
+        private readonly MonitoringUnitController _monitoringUnitController;
+        private long _alertCount;
+        private long _scanCount;
+        private long _virusCount;
 
         public FormMain()
         {
@@ -49,6 +50,11 @@ namespace VirusTotalScanner.Forms
                 _scanner.VirusTotalQueue.StateChanged += VirusTotalQueue_StateChanged;
                 _monitoringUnitController.Start();
             }
+            else
+            {
+                MessageBox.Show(Resources.FormMain_FormMain_Virus_Total_API_Key_Not_found,
+                    Resources.FormMain_FormMain_Virus_Total_API_Key_missing);
+            }
         }
 
         void VirusTotalQueue_StateChanged(object sender, StateChangedEventArgs e)
@@ -60,17 +66,17 @@ namespace VirusTotalScanner.Forms
                     case ScannerState.Scanning:
                         lblScannerStateMenuBar.BackColor = Color.Green;
                         menuStripScannerIndicator.BackColor = Color.Green;
-                        lblScannerStateMenuBar.Text = "Scanning";
+                        lblScannerStateMenuBar.Text = Resources.FormMain_VirusTotalQueue_StateChanged_Scanning;
                         break;
                     case ScannerState.Idling:
                         lblScannerStateMenuBar.BackColor = Color.Orange;
                         menuStripScannerIndicator.BackColor = Color.Orange;
-                        lblScannerStateMenuBar.Text = "Idle";
+                        lblScannerStateMenuBar.Text = Resources.FormMain_VirusTotalQueue_StateChanged_Idle;
                         break;
                     case ScannerState.ConnectionProblem:
                         lblScannerStateMenuBar.BackColor = Color.OrangeRed;
                         menuStripScannerIndicator.BackColor = Color.OrangeRed;
-                        lblScannerStateMenuBar.Text = "Connection Problem | Check Internet Connection";
+                        lblScannerStateMenuBar.Text = Resources.FormMain_VirusTotalQueue_StateChanged_Connection_Problem;
                         break;
                 }
             });
@@ -85,7 +91,7 @@ namespace VirusTotalScanner.Forms
         {
             this.HandleInvoke(() =>
             {
-                scanCount++;
+                _scanCount++;
                 var item = new ListViewItem(Path.GetFileName(e.FileScan.Path));
                 item.SubItems.Add(DateTime.Now.ToLongTimeString());
                 var totalScans = e.FileScan.TotalScans;
@@ -97,7 +103,7 @@ namespace VirusTotalScanner.Forms
                 {
                     lvwScanLog.Items.RemoveAt(0);
                 }
-                tbxTotalScans.Text = scanCount.ToString();
+                tbxTotalScans.Text = _scanCount.ToString();
             });
         }
 
@@ -108,7 +114,7 @@ namespace VirusTotalScanner.Forms
                 var alert = e.Alert as IFileAlert;
                 if (alert != null)
                 {
-                    alertCount++;
+                    _alertCount++;
                     var alertType = alert is ChangeAlert ? "Change" : "Creation";
                     var item = new ListViewItem(alertType);
                     item.SubItems.Add(Path.GetFileName(alert.Path));
@@ -119,7 +125,7 @@ namespace VirusTotalScanner.Forms
                     {
                         lvwAlertLog.Items.RemoveAt(0);
                     }
-                    tbxTotalAlerts.Text = alertCount.ToString();
+                    tbxTotalAlerts.Text = _alertCount.ToString();
                     tbxFilesInQueue.Text = _scanner.VirusTotalQueue.CurrentQueueCount.ToString();
                 }
             });
@@ -129,7 +135,7 @@ namespace VirusTotalScanner.Forms
         {
             this.HandleInvoke(() =>
             {
-                tbxVirusesFound.Text = (++virusCount).ToString();
+                tbxVirusesFound.Text = (++_virusCount).ToString();
                 var tipText = string.Format("{0}\nIn File: {1}", e.Virus.VirusName, Path.GetFileName(e.Virus.Path));
                 notifierIcon.ShowBalloonTip(15000, "Virus found", tipText, ToolTipIcon.Warning);
             });
@@ -156,7 +162,7 @@ namespace VirusTotalScanner.Forms
             settingsForm.ShowDialog();
             if (settingsForm.SettingsChanged)
             {
-                MessageBox.Show("You need to restart the program before the changed settings take effect.");
+                MessageBox.Show(Resources.FormMain_settingsToolStripMenuItem_Click_Settings_Changed_Restart_Message);
             }
         }
 

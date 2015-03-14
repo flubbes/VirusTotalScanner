@@ -61,6 +61,60 @@ namespace VirusTotalScanner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Virus Total API Key missing.
+        /// </summary>
+        internal static string FormMain_FormMain_Virus_Total_API_Key_missing {
+            get {
+                return ResourceManager.GetString("FormMain_FormMain_Virus_Total_API_Key_missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Virus Total API Key found. Please go to the settings and add your API key.
+        /// </summary>
+        internal static string FormMain_FormMain_Virus_Total_API_Key_Not_found {
+            get {
+                return ResourceManager.GetString("FormMain_FormMain_Virus_Total_API_Key_Not_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to restart the program before the changed settings take effect..
+        /// </summary>
+        internal static string FormMain_settingsToolStripMenuItem_Click_Settings_Changed_Restart_Message {
+            get {
+                return ResourceManager.GetString("FormMain_settingsToolStripMenuItem_Click_Settings_Changed_Restart_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connection Problem | Check Internet Connection.
+        /// </summary>
+        internal static string FormMain_VirusTotalQueue_StateChanged_Connection_Problem {
+            get {
+                return ResourceManager.GetString("FormMain_VirusTotalQueue_StateChanged_Connection_Problem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Idle.
+        /// </summary>
+        internal static string FormMain_VirusTotalQueue_StateChanged_Idle {
+            get {
+                return ResourceManager.GetString("FormMain_VirusTotalQueue_StateChanged_Idle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scanning.
+        /// </summary>
+        internal static string FormMain_VirusTotalQueue_StateChanged_Scanning {
+            get {
+                return ResourceManager.GetString("FormMain_VirusTotalQueue_StateChanged_Scanning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap VirusTotal_Icon {

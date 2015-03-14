@@ -91,6 +91,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                     }
                     catch
                     {
+                        // ignored
                     }
                 }
                 if (_waitTime < DefaultWaitTime)
@@ -103,6 +104,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                 }
                 catch
                 {
+                    // ignored
                 }
             }
         }
