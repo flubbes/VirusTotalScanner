@@ -156,7 +156,7 @@
             this.lvwAlertLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvwAlertLog.Location = new System.Drawing.Point(14, 152);
             this.lvwAlertLog.Name = "lvwAlertLog";
-            this.lvwAlertLog.Size = new System.Drawing.Size(325, 297);
+            this.lvwAlertLog.Size = new System.Drawing.Size(325, 300);
             this.lvwAlertLog.TabIndex = 1;
             this.lvwAlertLog.UseCompatibleStateImageBehavior = false;
             this.lvwAlertLog.View = System.Windows.Forms.View.Details;
@@ -189,7 +189,7 @@
             this.lvwScanLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.lvwScanLog.Location = new System.Drawing.Point(343, 67);
             this.lvwScanLog.Name = "lvwScanLog";
-            this.lvwScanLog.Size = new System.Drawing.Size(379, 382);
+            this.lvwScanLog.Size = new System.Drawing.Size(379, 385);
             this.lvwScanLog.TabIndex = 2;
             this.lvwScanLog.UseCompatibleStateImageBehavior = false;
             this.lvwScanLog.View = System.Windows.Forms.View.Details;
