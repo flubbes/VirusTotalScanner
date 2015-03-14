@@ -24,7 +24,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
         private VirusTotalNET.VirusTotal _virusTotal;
         private readonly Action<DetectedVirus> _virusFoundTrigger;
         public event NewDefinitionEventHandler NewDefinition;
-        private List<string> _recentScanHashes;
+        private readonly List<string> _recentScanHashes;
         private Thread _virusTotalThread;
         public event StateChangedEventHandler StateChanged;
 
