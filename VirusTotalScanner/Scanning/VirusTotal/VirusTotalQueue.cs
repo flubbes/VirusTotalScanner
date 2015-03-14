@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using VirusTotalNET;
@@ -81,6 +82,12 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                         _queuedFiles.Add(fileInfo);
                         Thread.Sleep(_waitTime);
                     }
+                    catch (WebException)
+                    {
+                        _queuedFiles.Add(fileInfo);
+                        _waitTime += 1000;
+                        
+                    }
                     catch
                     {
                     }
@@ -121,7 +128,6 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                 Hash = hash,
                 ScanResults = report.Scans != null ? report.Scans.Select(ConvertScanEngineToScanResult).ToList() : new List<ScanResult>()
             });
-            OnStateChanged(ScannerState.Waiting);
         }
 
         private void TriggerVirusFound(FileInfo fileInfo, FileReport report)
