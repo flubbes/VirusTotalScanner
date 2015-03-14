@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading;
 using VirusTotalScanner.Monitoring.Alerts;
 
 namespace VirusTotalScanner.Monitoring.FileSystemMonitoring
@@ -44,7 +45,10 @@ namespace VirusTotalScanner.Monitoring.FileSystemMonitoring
         {
             if (Watcher != null)
             {
-                Watcher.Dispose();
+                new Thread(Watcher.Dispose)
+                {
+                    IsBackground = true
+                }.Start();
             }
             IsRunning = false;
         }
