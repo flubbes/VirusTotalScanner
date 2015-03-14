@@ -10,7 +10,7 @@ using VirusTotalScanner.Monitoring.FileSystemMonitoring;
 using VirusTotalScanner.Properties;
 using VirusTotalScanner.Scanning;
 using VirusTotalScanner.Scanning.VirusTotal;
-using VirusTotalScanner.Support;
+using VirusTotalScanner.Utilities;
 
 namespace VirusTotalScanner.Forms
 {

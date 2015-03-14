@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using VirusTotalScanner.Support;
+using VirusTotalScanner.Utilities;
 
 namespace VirusTotalScanner.Forms
 {

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace VirusTotalScanner.Support
+namespace VirusTotalScanner.Utilities
 {
     public static class VirusScannerSettings
     {
@@ -18,6 +18,10 @@ namespace VirusTotalScanner.Support
 
         public static void SaveApiKeyToFile(string key)
         {
+            if (key == null)
+            {
+                return;
+            }
             var writer = File.CreateText(Filename);
             writer.WriteLine(key);
             writer.Flush();

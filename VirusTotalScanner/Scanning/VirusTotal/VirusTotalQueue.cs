@@ -59,7 +59,10 @@ namespace VirusTotalScanner.Scanning.VirusTotal
         public void Stop()
         {
             _shouldStopWorking = true;
-            _virusTotalThread.Interrupt();
+            if (_virusTotalThread != null)
+            {
+                _virusTotalThread.Interrupt();
+            }
         }
 
         private void ThreadMethod()

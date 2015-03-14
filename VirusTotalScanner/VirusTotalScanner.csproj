@@ -25,7 +25,7 @@
     <ProductName>VirusTotalScanner</ProductName>
     <PublisherName>KaBeSoft</PublisherName>
     <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -136,7 +136,7 @@
     <Compile Include="Scanning\NewFileScanEventHandlerArgs.cs" />
     <Compile Include="Scanning\VirusTotal\StateChangedEventArgs.cs" />
     <Compile Include="Scanning\VirusTotal\StateChangedEventHandler.cs" />
-    <Compile Include="Support\VirusScannerSettings.cs" />
+    <Compile Include="Utilities\VirusScannerSettings.cs" />
     <EmbeddedResource Include="Forms\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </EmbeddedResource>
