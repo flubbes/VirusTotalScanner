@@ -43,9 +43,12 @@ namespace VirusTotalScanner.Forms
                 unit.NewAlert += Unit_NewAlert;
             }
             var key = VirusScannerSettings.GetApiKeyFromFile();
-            _scanner.Start(key);
-            _scanner.VirusTotalQueue.StateChanged += VirusTotalQueue_StateChanged;
-            _monitoringUnitController.Start();
+            if (key != null)
+            {
+                _scanner.Start(key);
+                _scanner.VirusTotalQueue.StateChanged += VirusTotalQueue_StateChanged;
+                _monitoringUnitController.Start();
+            }
         }
 
         void VirusTotalQueue_StateChanged(object sender, StateChangedEventArgs e)
