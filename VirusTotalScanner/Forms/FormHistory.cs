@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -64,6 +65,19 @@ namespace VirusTotalScanner.Forms
                 _scanner.FoundViruses.Remove(item);
             }
             FillListViewWithFoundViruses();
+        }
+
+        private void openInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwVirusHistory.SelectedIndices.Count == 0)
+            {
+                return;
+            }
+
+            var selectedIndex = lvwVirusHistory.SelectedIndices[0];
+            var path = _scanner.FoundViruses.ElementAt(selectedIndex).Path;
+
+            Process.Start("explorer.exe", Path.GetDirectoryName(path));
         }
     }
 }
