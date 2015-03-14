@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using VirusTotalScanner.Scanning;
 
@@ -15,7 +17,7 @@ namespace VirusTotalScanner.Forms
             InitializeComponent();
             _scanner = scanner;
             _scanner.VirusFound += VirusScanner_VirusFound;
-            FillListViewWithViruses();
+            FillListViewWithFoundViruses();
         }
 
         /// <summary>
@@ -25,10 +27,10 @@ namespace VirusTotalScanner.Forms
         /// <param name="e">The data transmitted with this event</param>
         void VirusScanner_VirusFound(object sender, VirusFoundEventHandlerArgs e)
         {
-            FillListViewWithViruses();
+            FillListViewWithFoundViruses();
         }
 
-        void FillListViewWithViruses()
+        void FillListViewWithFoundViruses()
         {
             this.HandleInvoke(() =>
             {
@@ -49,6 +51,20 @@ namespace VirusTotalScanner.Forms
         private void closeWindowToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void removeFromHistoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (lvwVirusHistory.SelectedIndices.Count == 0)
+            {
+                return;
+            }
+            var toRemove = lvwVirusHistory.SelectedIndices.Cast<int>().Select(s => _scanner.FoundViruses.ElementAtOrDefault(s)).ToArray();
+            foreach (var item in toRemove)
+            {
+                _scanner.FoundViruses.Remove(item);
+            }
+            FillListViewWithFoundViruses();
         }
     }
 }
