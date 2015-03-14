@@ -93,7 +93,7 @@ namespace VirusTotalScanner.Forms
                 var virusPrognosis = FileScan.CalculateVirusRisk(e.FileScan);
                 item.SubItems.Add(virusPrognosis);
                 lvwScanLog.Items.Add(item);
-                if (lvwScanLog.Items.Count > 20)
+                if (lvwScanLog.Items.Count > 21)
                 {
                     lvwScanLog.Items.RemoveAt(0);
                 }
@@ -115,7 +115,7 @@ namespace VirusTotalScanner.Forms
                     item.SubItems.Add(DateTime.Now.ToLongTimeString());
 
                     lvwAlertLog.Items.Add(item);
-                    if (lvwAlertLog.Items.Count > 10)
+                    if (lvwAlertLog.Items.Count > 16)
                     {
                         lvwAlertLog.Items.RemoveAt(0);
                     }
@@ -157,7 +157,7 @@ namespace VirusTotalScanner.Forms
             MessageBox.Show("You need to restart the program before the changed settings take effect.");
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void aboutToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             var aboutForm = new FormAbout();
             aboutForm.ShowDialog();
