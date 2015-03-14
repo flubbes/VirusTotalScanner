@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
-using System.Windows.Forms;
 using VirusTotalNET;
 using VirusTotalNET.Exceptions;
 using VirusTotalNET.Objects;
