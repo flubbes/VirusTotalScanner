@@ -9,7 +9,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
 
     public enum ScannerState
     {
-        Waiting,
+        ConnectionProblem,
         Scanning,
         Idling
     }

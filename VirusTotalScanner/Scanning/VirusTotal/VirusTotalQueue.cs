@@ -119,7 +119,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                 Hash = hash,
                 ScanResults = report.Scans != null ? report.Scans.Select(ConvertScanEngineToScanResult).ToList() : new List<ScanResult>()
             });
-            OnStateChanged(ScannerState.Waiting);
+            // OnStateChanged(ScannerState.Waiting);
         }
 
         private void TriggerVirusFound(FileInfo fileInfo, FileReport report)

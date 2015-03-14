@@ -67,10 +67,10 @@ namespace VirusTotalScanner.Forms
                         menuStripScannerIndicator.BackColor = Color.Orange;
                         lblScannerStateMenuBar.Text = "Idle";
                         break;
-                    case ScannerState.Waiting:
+                    case ScannerState.ConnectionProblem:
                         lblScannerStateMenuBar.BackColor = Color.OrangeRed;
                         menuStripScannerIndicator.BackColor = Color.OrangeRed;
-                        lblScannerStateMenuBar.Text = "Waiting";
+                        lblScannerStateMenuBar.Text = "Connection Problem | Check Internet Connection";
                         break;
                 }
             });
