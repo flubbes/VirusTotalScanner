@@ -77,6 +77,11 @@ namespace VirusTotalScanner.Forms
                         menuStripScannerIndicator.BackColor = Color.OrangeRed;
                         lblScannerStateMenuBar.Text = Resources.FormMain_VirusTotalQueue_StateChanged_Connection_Problem;
                         break;
+                    case ScannerState.CleanUp:
+                        lblScannerStateMenuBar.BackColor = Color.PaleGreen;
+                        menuStripScannerIndicator.BackColor = Color.PaleGreen;
+                        lblScannerStateMenuBar.Text = Resources.FormMain_VirusTotalQueue_StateChanged_CleanUp;
+                        break;
                 }
             });
         }

@@ -11,6 +11,7 @@ namespace VirusTotalScanner.Scanning.VirusTotal
     {
         ConnectionProblem,
         Scanning,
-        Idling
+        Idling,
+        CleanUp
     }
 }

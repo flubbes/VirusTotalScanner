@@ -142,4 +142,7 @@
   <data name="NoMatchingBehaviorBehavior_HandleAlert_Unhandled_Alert_Message" xml:space="preserve">
     <value>An unhandled alert was found: </value>
   </data>
+  <data name="FormMain_VirusTotalQueue_StateChanged_CleanUp" xml:space="preserve">
+    <value>Cleaning Virus Total Queue</value>
+  </data>
 </root>

@@ -88,6 +88,15 @@ namespace VirusTotalScanner.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cleaning Virus Total Queue.
+        /// </summary>
+        internal static string FormMain_VirusTotalQueue_StateChanged_CleanUp {
+            get {
+                return ResourceManager.GetString("FormMain_VirusTotalQueue_StateChanged_CleanUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connection Problem | Check Internet Connection.
         /// </summary>
         internal static string FormMain_VirusTotalQueue_StateChanged_Connection_Problem {

@@ -69,33 +69,12 @@ namespace VirusTotalScanner.Scanning.VirusTotal
         {
             while (!_shouldStopWorking)
             {
+                CleanUpBagIfNeeded();
                 FileInfo fileInfo;
                 OnStateChanged(ScannerState.Idling);
                 if (_queuedFiles.TryTake(out fileInfo))
                 {
-                    try
-                    {
-                        WorkOnNextItem(fileInfo);
-                    }
-                    catch (RateLimitException)
-                    {
-                        Debug.WriteLine(_waitTime);
-                        _waitTime += 1000;
-                        _queuedFiles.Add(fileInfo);
-                        Thread.Sleep(_waitTime);
-                    }
-                    catch (WebException)
-                    {
-                        OnStateChanged(ScannerState.ConnectionProblem);
-                        Debug.WriteLine(_waitTime);
-                        _queuedFiles.Add(fileInfo);
-                        _waitTime += 1000;
-                        Thread.Sleep(_waitTime);
-                    }
-                    catch
-                    {
-                        // ignored
-                    }
+                    HandleBagItem(fileInfo);
                 }
                 if (_waitTime < DefaultWaitTime)
                 {
@@ -109,6 +88,43 @@ namespace VirusTotalScanner.Scanning.VirusTotal
                 {
                     // ignored
                 }
+            }
+        }
+
+        private void HandleBagItem(FileInfo fileInfo)
+        {
+            try
+            {
+                WorkOnNextItem(fileInfo);
+            }
+            catch (RateLimitException)
+            {
+                Debug.WriteLine(_waitTime);
+                _waitTime += 1000;
+                _queuedFiles.Add(fileInfo);
+                Thread.Sleep(_waitTime);
+            }
+            catch (WebException)
+            {
+                OnStateChanged(ScannerState.ConnectionProblem);
+                Debug.WriteLine(_waitTime);
+                _queuedFiles.Add(fileInfo);
+                _waitTime += 1000;
+                Thread.Sleep(_waitTime);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        private void CleanUpBagIfNeeded()
+        {
+            if (_queuedFiles.Count > 0)
+            {
+                OnStateChanged(ScannerState.CleanUp);
+                var cleanUpRoutine = new VirusTotalBagCleanUpRoutine(_queuedFiles);
+                cleanUpRoutine.CleanUp();
             }
         }
 

@@ -139,6 +139,7 @@
     <Compile Include="Scanning\NewFileScanEventHandlerArgs.cs" />
     <Compile Include="Scanning\VirusTotal\StateChangedEventArgs.cs" />
     <Compile Include="Scanning\VirusTotal\StateChangedEventHandler.cs" />
+    <Compile Include="Scanning\VirusTotal\VirusTotalBagCleanUpRoutine.cs" />
     <Compile Include="Utilities\VirusScannerSettings.cs" />
     <EmbeddedResource Include="Forms\FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
